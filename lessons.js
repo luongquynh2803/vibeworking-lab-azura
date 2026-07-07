@@ -1335,7 +1335,176 @@ trang upgrade, webhook Stripe"
 <li><strong>Bước 4.</strong> Thử 1 loop với metric cơ học (bundle size, coverage...) trong worktree riêng, 5-10 iterations. Ghi lại: keep gì, discard gì.</li>
 <li><strong>Bước 5.</strong> Dán vào ô bài làm: nhật ký ngày song song, skill riêng, kết quả loop, và 3 nguyên tắc kinh tế context bạn đã áp dụng kèm khác biệt nhận thấy. Tick checklist, copy prompt phản biện.</li>
 </ul>
-<div class="callout"><strong>Lời kết toàn khóa:</strong> nhìn lại quãng đường — m1 bạn học phân loại việc cho MỘT trợ lý; m15 bạn điều phối một ĐỘI agent chạy song song qua đêm, với skill riêng mang convention của bạn và hệ dữ liệu bạn sở hữu. Vibeworking master không phải người biết nhiều lệnh nhất — mà là người thiết kế được hệ thống trong đó AI làm việc đúng, có kiểm chứng, và ngày càng rẻ. Giờ thì đi build thôi.</div>`
+<div class="callout"><strong>Lời kết chặng engineering kit:</strong> nhìn lại quãng đường — m1 bạn học phân loại việc cho MỘT trợ lý; m15 bạn điều phối một ĐỘI agent chạy song song qua đêm, với skill riêng mang convention của bạn và hệ dữ liệu bạn sở hữu. Hai module cuối (m16-m17) đưa mọi thứ về "nhà": một trợ lý cá nhân sống trên máy bạn, trực chiến 24/7 trong chính app chat bạn dùng hằng ngày.</div>`
+      }
+    ]
+  },
+
+  m16: {
+    readingTime: "12 phút đọc",
+    sections: [
+      {
+        title: "1. OpenClaw là gì — và khác gì mọi thứ bạn đã học",
+        body: `
+<p>Đến giờ, mọi AI bạn làm việc cùng đều sống trong <em>cửa sổ của nó</em>: trang chat, Cowork, terminal. OpenClaw đảo ngược quan hệ đó: <strong>trợ lý sống ngay trên máy của bạn, và bạn nhắn cho nó qua app chat bạn vẫn dùng hằng ngày</strong> — Telegram, Slack, WhatsApp, iMessage — như nhắn cho một người bạn. Nó trả lời, và quan trọng hơn: nó làm được việc thật — tìm thông tin, đọc/ghi ghi chú, lên lịch nhắc, chạy các kỹ năng bạn cài (54 skill sẵn, 20+ kênh chat, mã nguồn mở MIT).</p>
+<p>Ba khối lego duy nhất cần nhớ ngày đầu:</p>
+<ul>
+<li><strong>Gateway</strong> — "tổng đài" chạy nền trên máy bạn: nhận tin, định tuyến, quản lý token/bảo mật. Bật một lần rồi để đó.</li>
+<li><strong>Channel</strong> — app chat bạn dùng để nói chuyện với trợ lý.</li>
+<li><strong>Model</strong> — "bộ não" AI (Claude, GPT, Gemini, model local...). Cần một cái, cắm-rút được.</li>
+</ul>
+<p>Ý tưởng cốt lõi đáng khắc ghi: <em>"Gateway chỉ là control plane — sản phẩm chính là trợ lý."</em> Mọi thứ khác (skill, plugin, multi-agent) là chi tiết của module sau.</p>
+<div class="callout"><strong>Vị trí trong bức tranh lớn:</strong> engineering kit (m13-m15) là <em>xưởng</em> — nơi bạn đến làm việc. OpenClaw là <em>trợ lý riêng</em> — nó ở cạnh bạn mọi lúc, và (spoiler m17) có thể điều phối cả cái xưởng kia thay bạn.</div>`
+      },
+      {
+        title: "2. Cài đặt và chạy lần đầu (~15 phút)",
+        body: `
+<p><strong>Chuẩn bị 3 thứ:</strong> Node.js 18+ (kiểm tra <code>node --version</code>); một API key cho bộ não (nhớ đặt <strong>spending limit</strong> trong tài khoản nhà cung cấp — API tính phí theo lượng dùng); và một app chat — dễ nhất là Telegram.</p>
+<pre><code># Cài (1 lệnh, bản dựng sẵn)
+npm install -g openclaw@latest
+openclaw --version        # hiện version là thành công
+
+# Thiết lập lần đầu — để nó hỏi bạn từng bước
+openclaw onboard</code></pre>
+<p><strong>Ba cách nói chuyện</strong>, chọn theo tình huống: <code>openclaw chat</code> — chat ngay trong terminal (thử nhanh nhất); <code>openclaw gateway run</code> + <code>openclaw dashboard</code> ở cửa sổ khác — tổng đài + giao diện web tại 127.0.0.1:18789; hoặc qua kênh chat thật:</p>
+<pre><code># Kết nối Telegram: tìm @BotFather → /newbot → nhận token
+openclaw channels add telegram    # dán token khi được hỏi
+# Mở Telegram, nhắn cho bot — lần đầu cần pairing xác nhận đúng là bạn</code></pre>
+<p><strong>Và lệnh quan trọng nhất cần thuộc:</strong> <code>openclaw doctor</code> — "bác sĩ" tự quét toàn bộ cấu hình, chỉ ra chính xác thiếu/sai gì và gợi ý lệnh sửa; <code>doctor --fix</code> để nó tự sửa luôn. Kèm theo: <code>status</code> (tổng quan gateway/kênh/model) và <code>logs --follow</code> (nhật ký trực tiếp). Ba lệnh này giải quyết 90% trục trặc của người mới — trước khi nghĩ đến gỡ ra cài lại.</p>`
+      },
+      {
+        title: "3. Trí nhớ minh bạch: nó nhớ bằng file, không phép thuật",
+        body: `
+<p>Điều quan trọng nhất người mới cần "ngộ" ra về OpenClaw: <strong>trợ lý ghi nhớ bằng cách viết ra các file Markdown trên đĩa — không có trí nhớ ẩn</strong>. Model chỉ nhớ những gì được lưu vào file. Mở file ra là thấy nó nhớ gì, và sửa được:</p>
+<ul>
+<li><strong>MEMORY.md / USER.md</strong> — sự thật dài hạn về công việc và về bạn.</li>
+<li><strong>SOUL.md</strong> — "bản tính cách": giọng điệu, cách cư xử. Trợ lý nói nhạt? Sửa file này, cảm nhận thay đổi ngay.</li>
+<li><strong>AGENTS.md</strong> — định hình hành vi agent, tương tự CLAUDE.md bạn đã quen ở m6.</li>
+<li><strong>Workspace</strong> — "bàn làm việc" riêng: thư mục nơi nó thao tác file.</li>
+</ul>
+<p>Bạn nhận ra mô hình này chứ? Đây chính là <strong>second brain của m11 áp cho chính trợ lý</strong>: tri thức nằm trong file bạn sở hữu — review được, sửa được, backup được, version-control được. Một hệ quả thực dụng: hãy coi persona như code — đưa SOUL.md, AGENTS.md (đã lọc secret) vào git.</p>
+<p>Khi hội thoại dài và trợ lý bắt đầu "quên": <code>/compact</code> tóm gọn các lượt cũ (toàn bộ lịch sử vẫn trên đĩa — compaction chỉ đổi <em>thứ model nhìn thấy</em>), và <code>openclaw sessions</code> để quản lý phiên. Đúng bài kinh tế context của m15.</p>`
+      },
+      {
+        title: "4. Bản đồ 4 khu tài liệu: để nhu cầu dẫn đường",
+        body: `
+<p>OpenClaw kèm một "cuốn sách" trong <code>docs/</code> chia 4 khu — mỗi khu trả lời một câu hỏi lớn. Đừng đọc tuần tự; mỗi file có dòng <code>read_when</code> nói rõ khi nào nên đọc. Bản đồ:</p>
+<ul>
+<li><strong>concepts — "Nó nghĩ thế nào?"</strong>: agent, workspace, soul, memory, context/compaction. Lộ trình 30 phút: <code>agent.md</code> (một agent = một bộ não có bàn làm việc riêng) → <code>memory.md</code> (nhớ bằng file, không phép thuật) → <code>soul.md</code> (thử sửa tính cách).</li>
+<li><strong>automation — "Làm sao nó tự chạy?"</strong>: cron, heartbeat, standing orders, hooks, webhook. File <code>index.md</code> có sẵn bảng quyết định nhanh — đọc nó đầu tiên. (Chi tiết ở m17.)</li>
+<li><strong>plugins — "Làm sao thêm khả năng?"</strong>: hai nhóm người đọc — người <em>cài</em> (manage-plugins.md) và người <em>viết</em> (building-plugins.md + SDK). Cảnh báo in đậm: cài plugin từ ClawHub là chạy code người khác trên máy bạn — đọc permission requests trước khi bật.</li>
+<li><strong>security — "Làm sao cho an toàn?"</strong>: THREAT-MODEL-ATLAS (bản đồ các lối tấn công), incident-response, network-proxy. Đọc tối thiểu 15 phút: lướt threat model phần đầu + nhớ incident-response ở đâu + <strong>chỉ mở gateway ra Internet sau khi đã đọc kỹ khu này</strong>.</li>
+</ul>
+<p>Rủi ro lớn nhất người mới hay bỏ qua — ghi lòng: <strong>prompt injection qua kênh chat</strong>. Ai đó gửi cho trợ lý một tin nhắn chứa "lệnh ẩn" để lừa nó làm điều xấu (gửi dữ liệu của bạn ra ngoài). Vì trợ lý có quyền thật (chạy lệnh, mở web, đọc chat), đây là mối nguy có thật — không phải lý thuyết.</p>`
+      },
+      {
+        title: "5. Năm lá chắn an toàn — bật trước khi làm gì khác",
+        body: `
+<ul>
+<li><strong>Chạy cục bộ trước</strong> (chỉ localhost). Đừng vội "phơi" gateway ra Internet — đó là việc của người đã đọc kỹ khu security.</li>
+<li><strong>Luôn đặt token cho gateway</strong>, đừng để trống — OpenClaw sẽ nhắc bạn.</li>
+<li><strong>Giữ API key bí mật:</strong> không chia sẻ file .env, không đưa lên GitHub (bạn đã có .gitignore từ m10 — áp dụng y hệt).</li>
+<li><strong>Command owner chỉ là chính bạn:</strong> tách "được nhắn cho bot" khỏi "được chạy lệnh nguy hiểm".</li>
+<li><strong>Không hiểu một lệnh sẽ làm gì → chưa chạy.</strong> Đọc --help hoặc hỏi chính trợ lý trước. (Nguyên tắc vàng của m13, trở lại lần thứ ba — vì nó đáng.)</li>
+</ul>
+<div class="callout callout-warning"><strong>Về chi phí:</strong> trợ lý chạy 24/7 qua API là chi phí thật chạy 24/7. Đặt spending limit ngay từ ngày đầu, và xem thói quen đo token ở m17 trước khi bật các tính năng nền.</div>`
+      },
+      {
+        title: "6. Hướng dẫn thực hành: trợ lý đầu tiên của riêng bạn",
+        body: `
+<p>Trong <strong>Xưởng thực hành</strong>:</p>
+<ul>
+<li><strong>Bước 1.</strong> Chuẩn bị đủ 3 thứ (Node 18+, API key có spending limit, Telegram) rồi cài + <code>openclaw onboard</code>.</li>
+<li><strong>Bước 2.</strong> Nói chuyện thử cả 3 cách: terminal chat → gateway + dashboard → kênh Telegram thật (kèm pairing).</li>
+<li><strong>Bước 3.</strong> Mở các file trí nhớ, đọc hiểu, rồi chỉnh <code>SOUL.md</code>: đặt giọng điệu bạn muốn (VD: ngắn gọn, tiếng Việt, xưng hô theo ý bạn). Xác nhận tính cách đổi thật.</li>
+<li><strong>Bước 4.</strong> Bật đủ 5 lá chắn an toàn (mục 5). Cố tình gây 1 trục trặc nhỏ (VD: sai config) rồi dùng <code>doctor</code> chẩn đoán và sửa — tập phản xạ "bác sĩ trước, cài lại sau".</li>
+<li><strong>Bước 5.</strong> Dán vào ô bài làm: nhật ký thiết lập, SOUL.md đã chỉnh, và một đoạn hội thoại thật với trợ lý qua kênh chat. Tick checklist, copy prompt phản biện.</li>
+</ul>
+<div class="callout"><strong>Nhìn về m17:</strong> trợ lý của bạn giờ biết nói chuyện. Module cuối dạy nó: nhiều nhân cách cho nhiều ngữ cảnh, trí nhớ tự lớn khi "ngủ", tự làm việc lúc bạn vắng — và điều phối cả Claude Code từ trong Telegram.</div>`
+      }
+    ]
+  },
+
+  m17: {
+    readingTime: "14 phút đọc",
+    sections: [
+      {
+        title: "1. Từ chatbot lên hệ điều hành cá nhân",
+        body: `
+<p>Người mới dùng OpenClaw để hỏi-đáp. Dân vibeworking dùng nó như một <strong>runtime</strong>: nhiều agent chạy song song, bộ nhớ tự củng cố, tự chạy nền theo lịch/sự kiện, và điều phối cả các coding harness khác. Sáu trụ cột của module này: multi-agent, memory, automation, coding harness, mở rộng, security — tất cả xoay quanh một file cấu hình trung tâm <code>~/.openclaw/openclaw.json</code> (chỉnh trực tiếp hoặc qua <code>openclaw config set</code>).</p>
+<p><strong>Multi-agent — một Gateway, nhiều persona.</strong> Một agent = một "bộ não đầy đủ": workspace, auth, model registry, session store <em>riêng</em>, nằm ở <code>~/.openclaw/agents/&lt;id&gt;/</code>. Một <em>binding</em> ánh xạ một tài khoản kênh (workspace Slack, số WhatsApp) tới một agent:</p>
+<pre><code>openclaw agents add work
+openclaw agents bind --agent work --channel slack:&lt;account-id&gt;
+openclaw agents list</code></pre>
+<p>Vì sao cần: tách bạch <strong>Work vs Personal</strong> (khác giọng, khác bộ nhớ, khác quyền — mỗi agent có SOUL.md/USER.md riêng); chạy 2 WhatsApp/2 Slack trong cùng một tiến trình; và an ninh — auth là per-agent, <em>rò rỉ một agent không kéo theo cái khác</em>. Chiến lược khuyên dùng: giữ agent <code>main</code> cho cá nhân, tạo agent chuyên biệt cho từng ngữ cảnh.</p>`
+      },
+      {
+        title: "2. Memory 4 tầng: trí nhớ biết tự lớn",
+        body: `
+<p>Phần "ma thuật" khiến OpenClaw khác chatbot thường — bốn cơ chế phối hợp, xếp theo thứ tự nên bật:</p>
+<ul>
+<li><strong>Compaction (bật sẵn):</strong> hội thoại gần chạm giới hạn context → tự tóm tắt lượt cũ, giữ nguyên lượt gần. Lịch sử vẫn nguyên trên đĩa — chỉ đổi thứ model <em>nhìn thấy</em>.</li>
+<li><strong>Active memory (opt-in):</strong> một sub-agent bộ nhớ chạy <em>trước</em> khi tạo câu trả lời — có một cơ hội giới hạn để "nhớ ra" thông tin liên quan, thay vì chờ bạn nói "nhớ giùm tôi". Bật với phạm vi hẹp (scope "dm") để tiết kiệm token.</li>
+<li><strong>Dreaming (opt-in):</strong> chạy nền ba pha (light/deep/REM) khi trợ lý "ngủ" — đẩy tín hiệu ngắn hạn mạnh vào bộ nhớ dài hạn: ghi nhật ký đọc được ra <code>DREAMS.md</code> và chỉ thăng cấp sự thật bền vào <code>MEMORY.md</code>. Trí nhớ tự lớn mà vẫn <em>giải thích được và review được</em> — đây chính là bước Distill của second brain (m11) chạy tự động.</li>
+<li><strong>Commitments (opt-in):</strong> nằm giữa bộ nhớ và automation — hội thoại tạo dịp check-in tương lai ("mai tôi phỏng vấn") → ghi một commitment, heartbeat mang nó trở lại đúng lúc.</li>
+</ul>
+<pre><code>openclaw memory search "&lt;từ khóa&gt;"
+openclaw memory reindex
+openclaw commitments list</code></pre>
+<div class="callout callout-warning"><strong>Nguyên tắc bật:</strong> từ từ, từng tầng, đo token sau mỗi lần. Compaction mặc định đủ cho đa số; thêm active memory khi cần "nhớ ngữ cảnh"; dreaming/commitments khi dùng dài hạn. Mỗi tầng đều có giá.</div>`
+      },
+      {
+        title: "3. Automation: làm việc khi bạn không nhìn",
+        body: `
+<p>Năm cơ chế, chọn theo bảng quyết định (file <code>automation/index.md</code> của docs có sẵn bảng này — đọc nó đầu tiên):</p>
+<pre><code>Muốn gì                                  → Dùng
+Việc lặp theo lịch (sáng tóm tắt inbox)  → Cron job
+Đánh thức khi một lệnh kết thúc          → Cron on-exit
+"Nội quy" áp mọi câu trả lời             → Standing orders
+Chèn logic vào vòng đời agent            → Hooks
+Kích hoạt từ hệ thống ngoài              → Webhook / tasks</code></pre>
+<pre><code>openclaw cron add --schedule "0 7 * * *" \\
+  --prompt "Tóm tắt email chưa đọc và lịch hôm nay, gửi cho tôi qua Telegram"</code></pre>
+<p>Phân biệt quan trọng hay bị lẫn: <strong>cron là lịch xác định</strong> (đúng 7h chạy); <strong>heartbeat là nhịp nền linh hoạt</strong> để giao commitments và kiểm tra — hai cơ chế khác nhau, docs có riêng file <code>cron-vs-heartbeat.md</code> vì quá nhiều người nhầm.</p>
+<p>Đây là scheduled tasks của m7 tiến hóa: trigger giờ không chỉ theo lịch mà theo sự kiện (on-exit, webhook), và "nội quy" (standing orders) chính là constraints của m2 được áp thường trực thay vì lặp lại mỗi prompt.</p>`
+      },
+      {
+        title: "4. Coding harness: điều phối Claude Code từ trong app chat",
+        body: `
+<p>Đây là mảnh ghép nối OpenClaw với toàn bộ chặng m13-m15 — có HAI con đường, đừng nhầm:</p>
+<ul>
+<li><strong>CLI backends — lưới an toàn text-only:</strong> chạy AI CLI cục bộ làm <em>fallback</em> khi API sập/rate-limit. Bảo thủ có chủ đích: tool của OpenClaw không tiêm thẳng vào (trừ khi bật bundleMcp). Set model <code>claude-cli/&lt;model&gt;</code> để đi qua Claude Code CLI với OAuth sẵn có.</li>
+<li><strong>ACP agents — harness đầy đủ, session bền:</strong> dùng Agent Client Protocol chạy harness ngoài (Claude Code, Cursor, Codex, Gemini CLI...) với điều khiển session, task nền, và — điểm ăn tiền — <strong>bind một hội thoại kênh với một session ACP bền</strong>. Mỗi việc giao đi là một background task theo dõi được.</li>
+</ul>
+<p>Nghĩa là workflow mẫu B thành hiện thực: nhắn qua Telegram <em>"sửa bug #123, mở PR"</em> → harness Claude Code chạy nền trong sandbox → báo kết quả về chat; theo dõi bằng <code>openclaw tasks</code>. Bạn điều phối cái "xưởng" m13-m15 từ túi quần.</p>
+<p>Quy tắc chọn: chỉ cần text ổn định → CLI backend; giao việc coding thật (đọc repo, sửa file, chạy test) và theo dõi như worker nền → ACP.</p>
+<p><strong>Mở rộng thêm năng lực</strong> mà không đụng lõi: <em>skill</em> = gói năng lực đóng sẵn (Apple Notes, GitHub, diagram-maker — <code>openclaw skills list/install</code>); <em>plugin</em> = mở rộng lõi (thêm kênh, provider, tool, hook). ClawHub là chợ — và cảnh báo quen thuộc: <strong>cài từ ClawHub là chạy code bên thứ ba trên máy bạn</strong>, OpenClaw có bước "risk acknowledgement", đọc kỹ nguồn trước khi bật. Chi tiết thú vị cho dân m8: plugin dùng typed contracts + doctor contract — bạn có thể để một ACP agent <em>tự sinh plugin nhỏ theo contract</em> — vibeworking gặp vibe-coding.</p>`
+      },
+      {
+        title: "5. Security & vận hành như dân chuyên",
+        body: `
+<p>Trợ lý có quyền thật = kỷ luật thật. Năm lớp phòng thủ của OpenClaw:</p>
+<ul>
+<li><strong>Capability profiles</strong> — ranh giới tool/quyền theo từng hội thoại, không làm yếu profile mặc định.</li>
+<li><strong>Command owner</strong> — tách "được nhắn cho bot" với "được chạy lệnh nguy hiểm": <code>openclaw config set commands.ownerAllowFrom '["telegram:&lt;your-id&gt;"]'</code>.</li>
+<li><strong>Sandbox</strong> — cô lập agent trong container khi chạy exec/browse trên nội dung không tin cậy.</li>
+<li><strong>net-policy + SSRF guard</strong> — chặn agent bị lừa gọi tới địa chỉ nội bộ.</li>
+<li><strong>Threat model</strong> — THREAT-MODEL-ATLAS.md mô tả các lối tấn công (prompt injection qua kênh, exfil). Đọc trước khi phơi bất cứ gì ra mạng. Kiểm tra định kỳ: <code>openclaw security audit</code>.</li>
+</ul>
+<p><strong>Vận hành:</strong> <code>status --deep</code> + <code>logs --follow</code> để quan sát; model failover (chuỗi fallback khi provider chính lỗi); <code>openclaw backup create</code> trước mọi thử nghiệm lớn; nodes để dùng camera/mic/voice từ thiết bị khác qua Gateway.</p>
+<p>Và bộ <strong>nguyên tắc vàng khi lên cấp</strong> — tổng hợp cả module: bật từng tầng một và đo chi phí · <code>doctor --fix</code> sau mỗi thay đổi config lớn · backup trước thử nghiệm · quyền tối thiểu (owner, profile hẹp, sandbox cho nội dung lạ) · đọc threat model trước khi phơi ra mạng · version-control persona (SOUL.md, AGENTS.md, config đã lọc secret) — <em>coi persona như code</em>.</p>`
+      },
+      {
+        title: "6. Hướng dẫn thực hành: dựng 2 trong 3 workflow mẫu",
+        body: `
+<p>Bài thực hành cuối cùng của toàn bộ chương trình. Trong <strong>Xưởng thực hành</strong>, chọn 2 trong 3:</p>
+<ul>
+<li><strong>A — Trợ lý sáng mỗi ngày:</strong> cron 7h → đọc email + lịch (skill) → tóm tắt → gửi Telegram. Bật commitments để nó tự check-in việc bạn hứa.</li>
+<li><strong>B — Worker coding nền:</strong> bind một hội thoại Telegram với session ACP Claude Code. Giao một việc thật trong dự án của bạn ("sửa bug X, chạy test, báo kết quả") → theo dõi bằng <code>openclaw tasks</code>. Nếu bạn có dự án kết nối course-mentor — lấy đúng việc "đang cần" của nó.</li>
+<li><strong>C — Bộ nhớ dài hạn tự lớn:</strong> bật active memory (scope dm) + dreaming. Sau 1-2 tuần, kiểm chứng bằng DREAMS.md và MEMORY.md: nó "nhớ" gì về dự án, về bạn — chỉnh tay chỗ sai.</li>
+</ul>
+<p>Với mỗi workflow: trước khi bật, ghi baseline token/chi phí; sau khi chạy vài ngày, ghi lại con số mới + đánh giá đáng/không đáng. Dán vào ô bài làm: cấu hình 2 workflow, số liệu chi phí, kết quả security audit, và một đoạn hội thoại thật chứng minh nó chạy. Tick checklist, copy prompt phản biện.</p>
+<div class="callout"><strong>Lời kết toàn khóa (thật sự):</strong> 17 module trước, bạn hỏi AI từng câu một. Giờ bạn có: quy trình 4 bước đã nội hóa, thư viện skill mang chuyên môn của bạn, second brain + knowledge graph bạn sở hữu, một xưởng engineering kit chạy song song, và một trợ lý cá nhân trực 24/7 trong app chat — điều phối tất cả những thứ trên. Câu của guide nâng cao xứng đáng là câu cuối giáo trình: <em>"Giới hạn không còn là công cụ làm được gì — mà là bạn thiết kế hệ thống của mình khéo tới đâu."</em></div>`
       }
     ]
   }

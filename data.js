@@ -1059,6 +1059,147 @@ const curriculum = [
       { front: "Worktree song song", back: "Mỗi git worktree một session một feature — hai luồng không đụng nhau. Sáng chia việc, chiều review chéo rồi merge lần lượt." },
       { front: "5 nguyên tắc kinh tế context", back: "Session ngắn mục tiêu đơn · docs là bộ nhớ dài hạn · chọn flag theo giá · plan là tài sản tái sử dụng · verify bằng máy, không bằng niềm tin." }
     ]
+  },
+  {
+    id: "m16",
+    level: "master",
+    number: 16,
+    title: "OpenClaw: Trợ Lý AI Cá Nhân Tự Vận Hành",
+    duration: "Tuần 13",
+    focus: "Trợ lý sống trên máy bạn, trả lời qua app chat bạn dùng",
+    description:
+      "Học viên tự cài và vận hành OpenClaw — trợ lý AI cá nhân chạy local, nhắn qua Telegram/Slack/WhatsApp, nhớ bằng file minh bạch — và nắm bản đồ 4 khu tài liệu để tự đi tiếp.",
+    objectives: [
+      "Hiểu kiến trúc Gateway – Channel – Model và vì sao 'gateway chỉ là control plane, sản phẩm chính là trợ lý'.",
+      "Cài đặt, onboard, kết nối kênh chat đầu tiên và chẩn đoán sự cố bằng doctor.",
+      "Nắm nguyên lý trí nhớ minh bạch (nhớ bằng file Markdown, không state ẩn) và 5 nguyên tắc an toàn vàng."
+    ],
+    topics: [
+      "Gateway (tổng đài chạy nền), Channel (app chat), Model (bộ não AI).",
+      "Cài đặt: npm install -g openclaw, onboard, chat/gateway/dashboard, kết nối Telegram.",
+      "Trí nhớ bằng file: MEMORY.md, USER.md, SOUL.md — mở ra là thấy, sửa được.",
+      "Bản đồ 4 khu docs: concepts, automation, plugins, security — đọc theo read_when."
+    ],
+    practice:
+      "Cài OpenClaw, onboard, kết nối 1 kênh chat (gợi ý Telegram), chỉnh SOUL.md để đổi tính cách trợ lý, và dùng doctor xử lý ít nhất 1 trục trặc.",
+    output: "Trợ lý OpenClaw chạy thật trên máy, trả lời qua kênh chat của bạn, kèm nhật ký thiết lập và bản SOUL.md đã tùy chỉnh.",
+    checklist: [
+      "Gateway chạy được, nhắn tin qua kênh chat thật (không chỉ openclaw chat trong terminal) và nhận trả lời.",
+      "Đã mở và hiểu các file trí nhớ (MEMORY.md/USER.md/SOUL.md); SOUL.md được chỉnh và thấy tính cách đổi thật.",
+      "5 lá chắn an toàn đã bật: chạy localhost, token gateway, API key bí mật, command owner chỉ là bạn, có đặt spending limit.",
+      "Biết dùng doctor/status/logs — đã tự chẩn đoán và sửa ít nhất 1 vấn đề."
+    ],
+    quiz: [
+      {
+        q: "Trong kiến trúc OpenClaw, phát biểu nào đúng?",
+        options: [
+          "Gateway là sản phẩm chính, trợ lý là phụ.",
+          "Gateway chỉ là 'tổng đài' điều phối chạy nền — cài một lần rồi cắm kênh chat và bộ não AI tùy ý; sản phẩm chính là trợ lý.",
+          "Mỗi kênh chat cần một Gateway riêng.",
+          "Model phải là model local, không dùng được API."
+        ],
+        answer: 1,
+        explain: "Gateway = control plane nhận tin, định tuyến, quản lý token. Channel và Model đều cắm-rút được quanh nó."
+      },
+      {
+        q: "Trí nhớ của OpenClaw 'minh bạch' nghĩa là gì?",
+        options: [
+          "Nó nhớ mọi thứ vĩnh viễn.",
+          "Nó ghi nhớ bằng các file Markdown trên đĩa (MEMORY.md, USER.md...) — không có trí nhớ ẩn; bạn mở file là thấy nó nhớ gì và sửa được.",
+          "Ai cũng đọc được trí nhớ của bạn qua mạng.",
+          "Nó không nhớ gì cả."
+        ],
+        answer: 1,
+        explain:
+          "Model chỉ nhớ những gì được lưu vào file — điểm khiến trợ lý kiểm soát được: review được, sửa được, backup được."
+      },
+      {
+        q: "Khi trợ lý trục trặc (kênh không trả lời, config sai), lệnh nên chạy đầu tiên là gì?",
+        options: [
+          "Gỡ ra cài lại toàn bộ.",
+          "openclaw doctor (hoặc doctor --fix) — tự quét cấu hình, chỉ ra chính xác thiếu/sai gì và gợi ý lệnh sửa.",
+          "Xóa thư mục ~/.openclaw.",
+          "Đổi sang model khác."
+        ],
+        answer: 1,
+        explain: "doctor là 'bác sĩ' của hệ thống — chẩn đoán trước, sửa có chủ đích sau, thay vì đập đi làm lại."
+      }
+    ],
+    flashcards: [
+      { front: "Gateway / Channel / Model", back: "Gateway: tổng đài chạy nền, cài một lần. Channel: app chat bạn dùng để nói chuyện (Telegram, Slack...). Model: bộ não AI (Claude, GPT...). Sản phẩm chính là trợ lý, gateway chỉ là control plane." },
+      { front: "Trí nhớ minh bạch", back: "OpenClaw nhớ bằng file Markdown trên đĩa (MEMORY.md, USER.md, SOUL.md) — không state ẩn. Mở file là thấy, sửa được, version-control được." },
+      { front: "5 lá chắn an toàn cơ bản", back: "Chạy localhost trước · đặt token gateway · giữ API key bí mật · command owner chỉ là bạn · không hiểu lệnh thì hỏi/--help trước khi chạy." }
+    ]
+  },
+  {
+    id: "m17",
+    level: "master",
+    number: 17,
+    title: "OpenClaw Nâng Cao: Hệ Điều Hành Cá Nhân",
+    duration: "Tuần 14",
+    focus: "Multi-agent, bộ nhớ tự lớn, automation, điều phối coding harness",
+    description:
+      "Học viên nâng OpenClaw từ chatbot thành runtime: nhiều persona cô lập, bộ nhớ 4 tầng tự củng cố, tự chạy nền theo lịch/sự kiện, và điều phối Claude Code/Codex như worker nền từ chính app chat.",
+    objectives: [
+      "Thiết kế multi-agent: persona cô lập theo ngữ cảnh với binding kênh và quyền riêng.",
+      "Bật và đo bộ nhớ 4 tầng (compaction, active memory, dreaming, commitments) theo nguyên tắc 'bật từng tầng một'.",
+      "Dựng automation (cron, standing orders, hooks) và nối coding harness qua ACP; vận hành an toàn với capability profiles + sandbox."
+    ],
+    topics: [
+      "Multi-agent: một Gateway nhiều bộ não, binding kênh → agent, auth per-agent.",
+      "Memory 4 tầng: compaction, active memory, dreaming (DREAMS.md → MEMORY.md), commitments.",
+      "Automation: cron, on-exit, standing orders, hooks, webhook; heartbeat vs cron.",
+      "Coding harness: CLI backend (fallback text) vs ACP (session bền, worker nền); security: capability profiles, sandbox, net-policy, threat model."
+    ],
+    practice:
+      "Dựng 2 trong 3 workflow mẫu: (A) trợ lý sáng — cron 7h tóm tắt email/lịch gửi Telegram; (B) worker coding nền — bind hội thoại với session ACP Claude Code; (C) bộ nhớ tự lớn — active memory + dreaming, kiểm chứng qua DREAMS.md/MEMORY.md.",
+    output: "Hai workflow OpenClaw chạy thật + ghi chú đo chi phí token từng tầng đã bật + cấu hình an toàn (owner, profile, sandbox) được kiểm bằng security audit.",
+    checklist: [
+      "Có ít nhất 2 agent cô lập (VD: work / personal) với binding kênh riêng, SOUL.md riêng.",
+      "Các tầng memory được bật TỪNG TẦNG và có ghi chú token/chi phí trước-sau mỗi lần bật.",
+      "2 workflow mẫu chạy thật, trong đó ít nhất 1 automation chạy đúng lịch mà không cần bạn đụng máy.",
+      "An toàn kiểm chứng được: command owner chỉ là bạn, capability profile hẹp, đã chạy security audit và backup trước thử nghiệm lớn."
+    ],
+    quiz: [
+      {
+        q: "Vì sao nên tách nhiều agent (work/personal) thay vì dùng một agent cho tất cả?",
+        options: [
+          "Để trông chuyên nghiệp hơn.",
+          "Mỗi agent là một 'bộ não' cô lập — workspace, bộ nhớ, giọng điệu, auth riêng; rò rỉ một agent không kéo theo cái khác.",
+          "Vì một agent chỉ nối được một kênh.",
+          "Để tốn nhiều token hơn."
+        ],
+        answer: 1,
+        explain: "Cô lập theo ngữ cảnh vừa là trải nghiệm (khác giọng, khác bộ nhớ) vừa là an ninh (auth per-agent)."
+      },
+      {
+        q: "Nguyên tắc đúng khi bật các tầng memory nâng cao (active, dreaming, commitments)?",
+        options: [
+          "Bật hết cùng lúc cho đủ tính năng.",
+          "Bật từng tầng một và đo token/chi phí sau mỗi lần — mỗi tầng đều có giá; compaction mặc định là đủ cho đa số.",
+          "Không bao giờ bật vì nguy hiểm.",
+          "Chỉ bật khi hết dung lượng đĩa."
+        ],
+        answer: 1,
+        explain: "Đây là 'chọn bậc thấp nhất đủ dùng' (m11) + kinh tế context (m15) áp vào bộ nhớ trợ lý."
+      },
+      {
+        q: "Khác biệt giữa CLI backend và ACP agent khi nối Claude Code vào OpenClaw?",
+        options: [
+          "Không có khác biệt.",
+          "CLI backend là lưới an toàn text-only (fallback khi API sập); ACP là harness đầy đủ với session bền — giao việc coding thật (đọc repo, sửa file, chạy test) như worker nền.",
+          "ACP chỉ dành cho Codex.",
+          "CLI backend mạnh hơn ACP."
+        ],
+        answer: 1,
+        explain: "Chọn theo nhu cầu: chỉ cần text ổn định → CLI backend; giao việc coding thật và theo dõi như task nền → ACP."
+      }
+    ],
+    flashcards: [
+      { front: "Memory 4 tầng của OpenClaw", back: "Compaction (mặc định, tóm hội thoại dài) → Active memory (sub-agent nhớ ra trước khi trả lời) → Dreaming (nền 3 pha, DREAMS.md → MEMORY.md) → Commitments (nhớ vòng lặp mở, heartbeat mang lại đúng lúc). Bật từng tầng, đo chi phí." },
+      { front: "Heartbeat vs Cron", back: "Cron: lịch xác định (7h sáng mỗi ngày). Heartbeat: nhịp nền để giao commitments/kiểm tra linh hoạt. Hai cơ chế khác nhau — đừng dùng lẫn." },
+      { front: "Kỷ luật khi lên cấp OpenClaw", back: "Bật từng tầng + đo chi phí · doctor --fix sau thay đổi config lớn · backup trước thử nghiệm · quyền tối thiểu (owner, profile hẹp, sandbox) · đọc threat model trước khi phơi ra mạng · version-control persona (SOUL.md, AGENTS.md)." }
+    ]
   }
 ];
 

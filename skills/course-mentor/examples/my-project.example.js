@@ -32,7 +32,9 @@ const myProject = {
     { moduleId: "m12", status: "later", note: "Chưa có nhu cầu câu hỏi đa bước" },
     { moduleId: "m13", status: "later", note: "Sản phẩm chưa có thành phần code lớn — học khi mở rộng" },
     { moduleId: "m14", status: "later", note: "" },
-    { moduleId: "m15", status: "later", note: "" }
+    { moduleId: "m15", status: "later", note: "" },
+    { moduleId: "m16", status: "later", note: "Trợ lý thường trực hữu ích khi vận hành nhiều kênh khách hàng" },
+    { moduleId: "m17", status: "later", note: "" }
   ],
   modules: {
     m9: {

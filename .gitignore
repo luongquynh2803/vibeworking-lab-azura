@@ -1,0 +1,9 @@
+# File cá nhân — sinh ra trên máy từng người, KHÔNG commit
+my-project.js
+avw-tien-do.json
+avw-portfolio.md
+
+# Hệ thống
+.DS_Store
+Thumbs.db
+node_modules/

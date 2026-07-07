@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentic Vibe Working Curriculum</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Điều hướng giáo trình">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">AV</span>
+          <div>
+            <p class="eyebrow">Giáo trình học tập</p>
+            <h1>Agentic Vibe Working</h1>
+          </div>
+        </div>
+
+        <div class="level-switch" role="tablist" aria-label="Cấp độ học">
+          <button class="level-tab is-active" type="button" data-level="foundation" role="tab">
+            Cơ bản
+          </button>
+          <button class="level-tab" type="button" data-level="advanced" role="tab">
+            Nâng cao
+          </button>
+        </div>
+
+        <div class="progress-panel">
+          <div class="progress-heading">
+            <span>Tiến độ</span>
+            <strong id="progressLabel">0/10</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progressBar"></span>
+          </div>
+        </div>
+
+        <div class="project-panel" id="projectPanel" aria-label="Dự án kết nối"></div>
+
+        <nav class="module-nav" id="moduleNav" aria-label="Danh sách module"></nav>
+
+        <div class="data-actions" aria-label="Sao lưu dữ liệu học tập">
+          <p class="eyebrow">Dữ liệu học tập</p>
+          <button class="ghost-button" type="button" id="exportJson">Xuất tiến độ (JSON)</button>
+          <button class="ghost-button" type="button" id="exportMd">Xuất portfolio (Markdown)</button>
+          <button class="ghost-button" type="button" id="importJson">Nhập tiến độ từ file</button>
+          <input type="file" id="importFile" accept="application/json" hidden />
+        </div>
+      </aside>
+
+      <main class="learning-space">
+        <section class="overview-band">
+          <div class="overview-copy">
+            <p class="eyebrow">AI-native workforce</p>
+            <h2>Từ tư duy Agentic AI đến xây dựng và kinh doanh Agent Skills</h2>
+            <p>
+              Chương trình được chia thành hai cấp độ: Foundation để làm chủ cách
+              giao việc, thiết kế context và kiểm chứng đầu ra với AI; Advanced để
+              biến tri thức thành workflow, Agent Skill và sản phẩm có thể chia sẻ.
+            </p>
+            <div class="metric-row" id="metricRow"></div>
+          </div>
+          <div class="map-visual" aria-label="Quy trình Agentic Vibe Working">
+            <img src="assets/agentic-loop.svg" alt="Sơ đồ Research Plan Execute Verify" />
+          </div>
+        </section>
+
+        <section class="workspace-grid">
+          <article class="module-detail" id="moduleDetail" aria-live="polite"></article>
+
+          <aside class="resource-panel" aria-label="Tài nguyên học tập">
+            <section class="resource-section">
+              <p class="eyebrow">Framework lõi</p>
+              <h3>Research → Plan → Execute → Verify</h3>
+              <p>
+                Mỗi module đều yêu cầu học viên tạo một đầu ra thật, sau đó kiểm chứng
+                bằng checklist và phản biện lại với AI.
+              </p>
+            </section>
+
+            <section class="resource-section">
+              <p class="eyebrow">Mẫu context</p>
+              <pre><code>Role → Goal → Context → Input
+Process → Output → Constraints
+Verification</code></pre>
+            </section>
+
+            <section class="resource-section">
+              <p class="eyebrow">Capstone</p>
+              <h3>Agent Skill có giá trị thực tế</h3>
+              <ul class="capstone-list" id="capstoneList"></ul>
+            </section>
+          </aside>
+        </section>
+
+        <section class="library-band">
+          <div class="section-title">
+            <p class="eyebrow">Bộ công cụ thực hành</p>
+            <h2>Prompt, workflow và checklist dùng trong suốt khóa học</h2>
+          </div>
+          <div class="tool-grid" id="toolGrid"></div>
+        </section>
+
+        <section class="library-band review-band">
+          <div class="section-title">
+            <p class="eyebrow">Ôn tập ngắt quãng</p>
+            <h2>Flashcard các khái niệm cốt lõi</h2>
+            <p class="band-hint">Ôn lại vài thẻ mỗi ngày. Mặc định chỉ hiện thẻ của module bạn đã hoàn thành.</p>
+          </div>
+          <div id="flashcardZone"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="lessons.js"></script>
+    <script src="my-project.js" onerror="void 0"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -59,6 +59,11 @@ Bảng tham chiếu 12 module (tóm tắt để mapping, nội dung đầy đủ
 | m10 Package & Sell | .skill, plugin, landing, pricing, beta test | S6 |
 | m11 Data Layer | Bậc thang lưu trữ, schema, second brain | S5 |
 | m12 Knowledge Graph | Triple, trích xuất quan hệ, multi-hop | S5 (khi quan hệ dữ liệu phức tạp) |
+| m13 Engineering Kit cơ bản | Kit skill/agent/hook, vòng Ask→Plan→Cook, an toàn | S2-S3 khi dự án là code + người dùng đã xong m1-m12 |
+| m14 Pipeline chất lượng | Plan --two/red-team, cook TDD, fix phân cấp, ship | S4-S5 với codebase có người dùng thật |
+| m15 Orchestration & mở rộng | Agent teams, worktree song song, loop, skill/hook riêng, kinh tế context | S5-S6 hoặc khi cần tăng throughput |
+
+Lưu ý track Master (m13-m15): chỉ gán "now"/"next" khi (a) dự án có thành phần code đáng kể VÀ (b) người học đã hoàn thành phần lớn m1-m12. Ngược lại để "later" với note giải thích.
 
 Quy tắc gán roadmap status cho từng module:
 - `done`: người dùng đã hoàn thành module VÀ dự án đã có bằng chứng áp dụng.
@@ -97,7 +102,7 @@ const myProject = {
   roadmap: [
     { moduleId: "m1", status: "done", note: "..." },
     { moduleId: "m8", status: "now", note: "..." }
-    // đủ 12 module, status: done | now | next | later
+    // đủ 15 module (m1-m15), status: done | now | next | later
   ],
   modules: {
     m8: {
@@ -114,7 +119,7 @@ const myProject = {
 
 **Kiểm tra trước khi ghi (bắt buộc, tự rà từng mục):**
 1. File là JavaScript hợp lệ (chạy thử parse).
-2. Mọi `moduleId` thuộc m1-m12; roadmap đủ 12 module, có đúng 1-2 "now".
+2. Mọi `moduleId` thuộc m1-m15; roadmap đủ 15 module, có đúng 1-2 "now".
 3. `focus.moduleId` có mặt trong `modules` với relevance high.
 4. Không có chuỗi nào chứa placeholder chưa điền ("...", "TODO", "[tên dự án]").
 5. customPractice không trùng nguyên văn bài thực hành gốc trong `data.js`.

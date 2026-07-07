@@ -1090,5 +1090,253 @@ Xuất dạng bảng: chu_the | quan_he | doi_tuong | nguon"</code></pre>
 <div class="callout"><strong>Lời kết cho chặng dữ liệu (M11-M12):</strong> giờ bạn có đủ ba tầng của một hệ thống làm việc AI-native hoàn chỉnh — <em>quy trình</em> (workflow, skill), <em>dữ liệu</em> (data layer, second brain) và <em>quan hệ</em> (knowledge graph). Skill làm việc, second brain ghi nhớ, đồ thị kết nối. Cả ba lớn dần theo thời gian — và khác với công cụ AI bạn thuê, cả ba là tài sản bạn sở hữu.</div>`
       }
     ]
+  },
+
+  m13: {
+    readingTime: "14 phút đọc",
+    sections: [
+      {
+        title: "1. Bước vào Master: từ một trợ lý sang cả một đội",
+        body: `
+<p>Chào mừng đến track Master. Điều kiện vào: bạn đã đi hết 12 module — biết thiết kế context, xây workflow, đóng gói skill, và có hệ thống dữ liệu riêng. Track này trả lời câu hỏi tiếp theo: <strong>chuyện gì xảy ra khi không phải một AI, mà cả một đội agent làm việc cho bạn?</strong></p>
+<p>Công cụ của chặng này là <strong>engineering kit</strong> — bộ quy trình + agent + skill + hook cài vào Claude Code (tiêu biểu: ClaudeKit Engineer; các kit kiểu OpenClaw tương tự về nguyên lý). Nếu Claude Code là một nhân viên giỏi, kit biến nó thành cả một đội: planner nghĩ kiến trúc, developer code, tester kiểm thử, reviewer soi lỗi, docs-manager cập nhật tài liệu. Một kit điển hình có 13 agents, 88 skills và các slash command như <code>/ck:plan</code>, <code>/ck:cook</code> chạy cả quy trình bằng một dòng.</p>
+<p>Ba khối lego của kit — và bạn sẽ nhận ra chúng là phiên bản công nghiệp hóa của những gì bạn đã học:</p>
+<ul>
+<li><strong>Skill</strong> — hộp kỹ năng theo việc (lập plan, fix bug, thiết kế UI, tích hợp payment...) — chính là Agent Skill của module 8, viết bởi người khác, ở quy mô 88 cái.</li>
+<li><strong>Agent</strong> — vai trò chuyên môn được điều phối tự động — là human-in-the-loop workflow của module 7, nhưng "human" ở các chốt trung gian được thay bằng agent chuyên trách, còn bạn giữ chốt cuối.</li>
+<li><strong>Hook</strong> — lan can an toàn tự động: chặn file nhạy cảm, nhắc quy tắc, cảnh báo — là error handling của module 7 viết thành code, không phải dặn miệng.</li>
+</ul>
+<div class="callout callout-warning"><strong>Định vị đúng ngay từ đầu:</strong> đừng xem kit như nút "tự code hết". Nó không thay bạn suy nghĩ sản phẩm — nó biến ý tưởng mơ hồ thành các bước rõ ràng để bạn duyệt. Người dùng kit giỏi không phải người gõ ít nhất, mà là người <em>không cho phép quy trình đi tắt</em>.</div>`
+      },
+      {
+        title: "2. Chuẩn bị an toàn: sân tập trước, sản phẩm thật sau",
+        body: `
+<p>Quy tắc số một của tuần đầu: <strong>tập trong project thử, không cài thẳng vào sản phẩm thật</strong> khi chưa quen cách kit tạo plan, sửa file và hỏi duyệt.</p>
+<pre><code># 1. Tạo sân tập
+mkdir claudekit-practice && cd claudekit-practice && git init
+
+# 2. Cài kit CLI (một lần) và init kit vào project
+npm install -g claudekit-cli
+ck init --kit engineer      # hoặc: ck new --dir du-an --kit engineer
+
+# 3. Mở Claude Code trong thư mục đó
+claude
+# thử: /ck:ask "Giải thích project này và tôi có thể dùng lệnh nào?"</code></pre>
+<p>Hai thiết lập nên làm ngay:</p>
+<ul>
+<li><strong>Chỉnh mức giải thích:</strong> kit có 6 output styles từ <code>coding-level-0-eli5</code> (giải thích như cho trẻ 5 tuổi) đến <code>level-5</code> (gần như chỉ diff và quyết định). Mới bắt đầu → <code>/output-style coding-level-0-eli5</code>; tăng dần khi quen. Đây là núm chỉnh "AI nói chuyện vừa trình mình" — dùng nó thay vì chịu đựng.</li>
+<li><strong>Giữ permission prompt bật:</strong> bạn sẽ thấy trên mạng lệnh <code>--dangerously-skip-permissions</code> (YOLO mode). Đừng dùng khi chưa quen — mỗi câu hỏi xin quyền chính là điểm human-in-the-loop cuối cùng trước khi AI sửa file, chạy lệnh mạnh hay đụng secrets. Dân kinh nghiệm chỉ bật trong worktree cô lập không có credentials thật (module 15).</li>
+</ul>
+<p>Và ba luật an toàn bất di bất dịch: <strong>không paste secret vào chat</strong> (API key, password để trong file env); <strong>luôn đọc plan trước khi cook</strong> (không hiểu thì bắt giải thích bằng ngôn ngữ đơn giản); <strong>commit nhỏ, thường xuyên</strong> — mỗi bước ổn định một lần "lưu game", hỏng còn đường quay về. AI làm sai ý? Đừng xóa tay — nói "hoàn tác thay đổi vừa rồi", nó dùng git khôi phục an toàn.</p>`
+      },
+      {
+        title: "3. Vòng lặp chuẩn và bảng routing 10 lệnh",
+        body: `
+<p>Sai cách kinh điển: "làm cho tôi app này" rồi để AI đoán toàn bộ — ra code trông chạy nhưng sai nhu cầu, khó sửa. Đúng cách là vòng lặp nhỏ: <strong>Ask để hiểu → Plan để chia việc → Cook để làm → Test để kiểm → Review để soi → Git/Ship khi ổn</strong>. Nhận ra chưa? Đây chính là Research-Plan-Execute-Verify của module 4, được kit đóng thành lệnh.</p>
+<p>Không cần nhớ 88 skills — 10 lệnh này phủ 80% công việc:</p>
+<pre><code>Lệnh              Dùng khi                          Rủi ro
+/ck:ask           Hỏi kiến trúc, so sánh phương án   Thấp (không sửa file)
+/ck:scout         Tìm hiểu codebase, file liên quan  Thấp
+/ck:plan          Lập kế hoạch trước tính năng       Thấp
+/ck:cook          Implement theo yêu cầu/plan        Trung bình
+/ck:fix           Sửa bug, lỗi test, lỗi build       Trung bình
+/ck:test          Chạy test, kiểm tra UI, build      Thấp
+/ck:code-review   Soi code trước commit/PR           Thấp
+/ck:docs          Tạo/cập nhật tài liệu dự án        Thấp
+/ck:git           Commit, push, tạo PR               Cao nếu push
+/ck:ship          Pipeline chốt: test+review+PR      Cao</code></pre>
+<p>Quy tắc chọn nhanh: <strong>việc to thì Plan trước, việc nhỏ thì Cook luôn</strong> (<code>/ck:cook --fast</code> cho việc rõ scope). Ngoài lệnh, chat thường vẫn hoạt động: "file này để làm gì?", "giải thích phần vừa làm", "hoàn tác thay đổi vừa rồi". Và <code>/ck:watzup</code> — "dạo này dự án tới đâu rồi?" — chạy cuối mỗi buổi để hôm sau vào không mất mạch.</p>`
+      },
+      {
+        title: "4. Lộ trình 7 ngày làm quen",
+        body: `
+<p>Mỗi ngày 30-60 phút, mục tiêu là nắm workflow chứ không phải học hết kit:</p>
+<ul>
+<li><strong>Ngày 1 — Làm quen không sửa file:</strong> <code>/ck:ask "Giải thích project này cho người không biết code"</code>. Chỉ hỏi, chưa đụng gì.</li>
+<li><strong>Ngày 2 — Scout:</strong> <code>/ck:scout "project này có những phần chính nào?"</code> — thói quen tìm hiểu trước khi nhờ sửa (Research trước Execute).</li>
+<li><strong>Ngày 3 — Plan nhỏ:</strong> <code>/ck:plan --fast "thêm trang giới thiệu đơn giản"</code>. Đọc kỹ plan nó viết ra file trong <code>plans/</code>.</li>
+<li><strong>Ngày 4 — Cook từ plan:</strong> <code>/ck:cook plans/.../plan.md</code>. Nó hỏi duyệt gì, đọc rồi mới đồng ý.</li>
+<li><strong>Ngày 5 — Test và review:</strong> <code>/ck:test</code> + <code>/ck:code-review --pending</code>. Không cần hiểu hết output — cần biết pass/fail và lỗi nằm đâu.</li>
+<li><strong>Ngày 6 — Tập fix:</strong> tạo/chọn một lỗi nhỏ, <code>/ck:fix "nút gửi form không hoạt động"</code> — để thấy quy trình bắt buộc tìm nguyên nhân trước khi vá.</li>
+<li><strong>Ngày 7 — Git và tổng kết:</strong> <code>/ck:git cm</code> tạo commit sạch + <code>/ck:journal</code> tổng kết tuần.</li>
+</ul>
+<p>Mẹo prompt xuyên suốt (đúc từ guide non-tech): <strong>mô tả kết quả, đừng mô tả cách làm</strong> ("khách bấm nút là nhận email xác nhận" thay vì đoán thuật ngữ); <strong>một lần một việc</strong>; <strong>cho ví dụ tham khảo</strong> ("giống trang abc.com nhưng màu khác" đáng giá hơn 10 dòng mô tả); <strong>nghiệm thu bằng mắt</strong> — mở sản phẩm xem thật (<code>/ck:preview</code>), đừng chỉ tin báo cáo.</p>`
+      },
+      {
+        title: "5. Xử lý sự cố thường gặp và checklist tin kết quả",
+        body: `
+<p>Các tình huống tuần đầu hay gặp:</p>
+<ul>
+<li><strong>Không thấy lệnh /ck:</strong> → chưa <code>ck init --kit engineer</code> trong đúng project, hoặc chưa mở lại Claude Code.</li>
+<li><strong>AI hỏi quá nhiều</strong> → prompt thiếu acceptance criteria: bổ sung muốn output gì, không đụng phần nào, tiêu chí pass.</li>
+<li><strong>AI sửa quá rộng</strong> → dừng và ra lệnh: "chỉ sửa các file trong plan, không refactor ngoài scope".</li>
+<li><strong>Hội thoại dài, AI 'lú'</strong> → <code>/compact</code> nén hội thoại, hoặc <code>/ck:watzup</code> ghi trạng thái rồi mở phiên mới (kinh tế context — học sâu ở m15).</li>
+<li><strong>Plan quá dài không đọc nổi</strong> → yêu cầu bản tóm tắt: mục tiêu, file sẽ sửa, rủi ro, thứ cần approve.</li>
+</ul>
+<p>Và checklist 3 cổng trước khi tin bất kỳ kết quả nào — dán lên màn hình được:</p>
+<ul>
+<li><strong>Trước khi code:</strong> plan có mục tiêu, file liên quan, tiêu chí xong, rủi ro và đường rollback chưa?</li>
+<li><strong>Sau khi code:</strong> đã chạy test/build chưa? Nếu skip test, rủi ro có được ghi rõ không?</li>
+<li><strong>Trước khi push:</strong> có secrets trong commit không (.env, key, token)?</li>
+</ul>
+<div class="callout"><strong>Nguyên tắc vàng:</strong> nếu bạn không hiểu AI sắp làm gì — chưa approve. Bắt nó giải thích bằng ngôn ngữ sản phẩm trước, rồi mới cho làm.</div>`
+      },
+      {
+        title: "6. Hướng dẫn thực hành: 7 ngày đầu tiên với kit",
+        body: `
+<p>Trong <strong>Xưởng thực hành</strong>:</p>
+<ul>
+<li><strong>Bước 1.</strong> Dựng sân tập theo mục 2 (project riêng + git + kit + output-style phù hợp trình độ của bạn).</li>
+<li><strong>Bước 2.</strong> Đi lộ trình 7 ngày (mục 4). Sản phẩm cụ thể gợi ý: landing page cho chính Agent Skill bạn làm ở module 10 — vừa tập kit vừa được tài sản thật.</li>
+<li><strong>Bước 3.</strong> Mỗi ngày ghi nhật ký 3 dòng: hôm nay làm gì / AI làm tốt gì / chỗ nào mình phải can thiệp và vì sao.</li>
+<li><strong>Bước 4.</strong> Ngày 7, tự chấm bằng checklist 3 cổng cho sản phẩm cuối. Dán nhật ký + link sản phẩm vào ô bài làm, tick checklist, copy prompt phản biện.</li>
+</ul>
+<div class="callout"><strong>Nhìn về m14:</strong> tuần này bạn học lái xe trong sân. Module sau học lái trên đường thật: plan sâu nhiều phương án, TDD trên code có người dùng, và nghi thức ship không cho phép đi tắt.</div>`
+      }
+    ]
+  },
+
+  m14: {
+    readingTime: "9 phút đọc",
+    sections: [
+      {
+        title: "1. Ở trình độ này, đòn bẩy nằm ở quy trình",
+        body: `
+<p>Câu chốt của cả guide advanced đáng đóng khung: <em>"Đòn bẩy không còn ở prompt hay — mà ở quy trình bạn ép agent đi qua: plan có red-team, cook có TDD, ship có review + security-scan. Kit đã dựng sẵn đường ray; việc của bạn là không cho phép đi tắt."</em></p>
+<p>Trước hết, thuộc <strong>routing map</strong> — biết kit sẽ tự đi đường nào để đoán được nó làm gì:</p>
+<pre><code>Ý định                    → Chuỗi lệnh
+Feature mới               → plan → cook → test → code-review
+Chạy plan có sẵn          → cook &lt;plan-path&gt;
+Việc nhỏ, rõ scope        → cook --fast
+Bug / CI đỏ               → fix (nhiều lỗi độc lập: fix --parallel)
+Chưa rõ vấn đề            → scout → debug → brainstorm → plan
+Ship branch đã xong       → ship
+Cập nhật tài liệu         → docs update</code></pre>
+<p>Một quy tắc handoff quan trọng: <strong>domain skill trước, workflow skill sau</strong>. Làm feature React thì kit load <code>frontend-development</code> lấy pattern đúng, rồi mới execute qua plan/cook. Đừng ép cook làm việc của domain skill — giống như đừng bắt thợ mộc tự nghĩ ra bản vẽ kiến trúc.</p>`
+      },
+      {
+        title: "2. Plan chuyên sâu: flags quyết định chất lượng",
+        body: `
+<p>Plan không phải một lệnh — nó là một họ chế độ, chọn theo độ phức tạp và cái giá của sai lầm:</p>
+<ul>
+<li><strong>--fast:</strong> scope rõ, plan mỏng, đỡ tốn token. Mặc định cho việc thường ngày.</li>
+<li><strong>--deep / --hard:</strong> refactor lớn, thay đổi kiến trúc, nhiều unknowns — nghiên cứu kỹ trước khi chốt.</li>
+<li><strong>--two:</strong> ra <em>hai phương án cạnh tranh</em> để bạn chọn. Rất đáng dùng cho quyết định kiến trúc — nó chống lại thói quen nguy hiểm nhất: nuốt luôn phương án đầu tiên AI đưa ra.</li>
+<li><strong>--tdd:</strong> plan theo red-green-refactor, test viết trước, mỗi phase gắn với test.</li>
+<li><strong>--parallel:</strong> chia phase cho nhiều agent/worktree chạy song song (dùng ở m15).</li>
+</ul>
+<p>Và vũ khí ít người dùng nhất mà đáng nhất: <strong><code>/ck:plan red-team</code></strong> — cho agent tấn công chính plan của nó để tìm lỗ hổng trước khi cook. Đây là Verify của module 4 áp vào tầng kế hoạch: sửa lỗ hổng trên giấy rẻ hơn hàng chục lần sửa trong code.</p>
+<pre><code># Nhịp chuẩn cho quyết định lớn:
+/ck:plan --deep --two "tách notification pipeline khỏi monolith,
+giữ nguyên contract với mobile app"
+# đọc 2 phương án → chọn → /ck:plan red-team → duyệt → /ck:cook plans/&lt;plan&gt;/plan.md</code></pre>
+<p>Plan artifacts nằm trong <code>plans/</code> theo template chuẩn (feature/bugfix/refactor); skill <code>plans-kanban</code> render toàn bộ thành bảng kanban để track. Lưu ý kỹ thuật: kit dùng CLI để quản lý trạng thái plan — đừng sửa tay cấu trúc file plan.</p>`
+      },
+      {
+        title: "3. Cook TDD và Fix phân cấp",
+        body: `
+<p><strong>Cook TDD</strong> (<code>/ck:cook "..." --tdd</code>) ép thứ tự: viết test fail → implement cho pass → refactor. Chậm hơn ~30% — và là <em>chế độ duy nhất nên dùng khi đụng vào code có người dùng thật</em>. Logic của giao dịch: 30% thời gian đổi lấy bảo hiểm chống hồi quy trên thứ đang nuôi khách hàng của bạn. Với code nháp, prototype — cook thường là đủ.</p>
+<p><strong>Fix có ba cấp</strong>, chọn theo độ hiểu vấn đề:</p>
+<ul>
+<li><code>/ck:fix "lỗi..."</code> — mặc định. Quy tắc vàng khi dùng: <strong>dán nguyên văn lỗi/log/stacktrace</strong>, đừng chỉ nói "nó không chạy". Kit bắt buộc tìm root cause trước khi vá — đừng giục nó "sửa nhanh đi".</li>
+<li><code>/ck:fix --parallel</code> — nhiều lỗi <em>độc lập</em> (VD: 3 test suite đỏ sau merge): mỗi agent một lỗi, chạy song song.</li>
+<li><code>/ck:debug</code> — chưa reproduce được, cần truy vết trước khi nói chuyện sửa.</li>
+</ul>
+<div class="callout"><strong>Mẫu prompt fix chuẩn:</strong> <code>/ck:fix "Khi bấm nút checkout thì lỗi: [dán nguyên văn]. Hãy tìm root cause trước, không sửa đoán."</code> — nửa sau câu quan trọng ngang nửa đầu.</div>`
+      },
+      {
+        title: "4. Nghi thức ship: không cho phép đi tắt",
+        body: `
+<p><code>/ck:ship</code> gom: verify, changelog, commit message chuẩn, chuẩn bị PR — và chỉ được chạy khi implementation + test + review đã xong. Nghi thức đầy đủ cho một feature quan trọng:</p>
+<pre><code>/ck:plan --tdd "thêm subscription tier Pro: gate feature,
+trang upgrade, webhook Stripe"
+# duyệt plan → /ck:plan red-team → duyệt lại
+/ck:cook plans/&lt;plan&gt;/plan.md
+/ck:test
+/ck:security-scan      # chạm auth/payment/input → BẮT BUỘC
+/ck:code-review
+/ck:ship</code></pre>
+<p>Trong đó <code>/ck:security-scan</code> là bước người tự học hay bỏ nhất — quy tắc đơn giản: thay đổi chạm <strong>auth, payment, hoặc input người dùng</strong> thì scan là bắt buộc, không phải tùy chọn.</p>
+<p>Hai use case khẩn cấp đáng thuộc lòng: <strong>CI đỏ trước deadline</strong> → <code>/ck:fix --parallel</code> với log đính kèm, mỗi suite một agent, xong <code>/ck:test</code> xác nhận toàn bộ xanh. <strong>Nhận codebase lạ</strong> (freelance/OSS) → <code>/ck:scout</code> map kiến trúc + nợ kỹ thuật, rồi <code>/ck:docs</code> sinh codebase-summary làm nền cho mọi session sau — đầu tư 30 phút đầu tiết kiệm hàng giờ mỗi phiên về sau.</p>`
+      },
+      {
+        title: "5. Hướng dẫn thực hành: một feature qua pipeline đầy đủ",
+        body: `
+<p>Trong <strong>Xưởng thực hành</strong> — chọn một tính năng thật, đủ quan trọng để xứng pipeline (nếu có dự án kết nối course-mentor, lấy việc "đang cần" của dự án đó):</p>
+<ul>
+<li><strong>Bước 1.</strong> <code>/ck:plan --two</code> — đọc cả hai phương án, ghi lại 3 dòng: khác nhau chỗ nào, chọn cái nào, vì sao.</li>
+<li><strong>Bước 2.</strong> <code>/ck:plan red-team</code> trên phương án đã chọn — ghi lại lỗ hổng nó tìm ra và bạn sửa gì trong plan.</li>
+<li><strong>Bước 3.</strong> <code>/ck:cook --tdd</code> theo plan. Chụp/ghi lại khoảnh khắc test đỏ trước, xanh sau — đó là bằng chứng TDD thật.</li>
+<li><strong>Bước 4.</strong> Chạy đủ nghi thức: test → (security-scan nếu chạm auth/payment/input) → code-review → ship.</li>
+<li><strong>Bước 5.</strong> Dán vào ô bài làm: so sánh 2 phương án, kết quả red-team, và nhật ký pipeline. Tick checklist, copy prompt phản biện.</li>
+</ul>
+<div class="callout"><strong>Thước đo thành công của module:</strong> không phải feature chạy được — mà là bạn đã đi hết đường ray không rẽ tắt lần nào, và biết chính xác vì sao từng trạm tồn tại.</div>`
+      }
+    ]
+  },
+
+  m15: {
+    readingTime: "10 phút đọc",
+    sections: [
+      {
+        title: "1. Đỉnh của lộ trình: bạn là người điều phối",
+        body: `
+<p>Module cuối cùng của cả chương trình. Ở m13 bạn học lái một đội qua đường ray có sẵn; ở đây bạn học ba việc chỉ người điều phối mới làm: <strong>chạy nhiều luồng song song</strong>, <strong>dạy kit theo cách của mình</strong>, và <strong>quản trị chi phí context như quản trị ngân sách</strong>.</p>
+<p>Trước tiên, biết đội hình trong tay: kit có 13 subagents — planner, fullstack-developer, tester, code-reviewer, code-simplifier, debugger, git-manager, docs-manager, researcher, project-manager, brainstormer, ui-ux-designer, journal-writer. Bình thường kit tự điều phối; trình master là bạn <em>chỉ định</em> đội hình khi cần:</p>
+<pre><code>/ck:team implement "migrate REST sang tRPC cho module billing" --devs 3 --reviewers 1</code></pre>
+<p>Điều kiện dùng team — thuộc lòng vì sai là đốt token: <strong>nên</strong> khi task chia được thành mảnh ít giao nhau, mỗi teammate một module/boundary rõ với tiêu chí hoàn thành đo được. <strong>Không nên</strong> với task dưới 1 giờ hoặc task cần một dòng suy luận liền mạch — team lúc đó chỉ tốn token và sinh conflict. Orchestration luôn có "thuế": nhiều agent = nhiều context trùng lặp = chi phí nhân lên, chỉ đáng khi độ song song thật sự tồn tại trong bản chất công việc.</p>`
+      },
+      {
+        title: "2. Worktree: song song thật sự cho solo-builder",
+        body: `
+<p>Git worktree = nhiều bản working copy của cùng một repo. Ghép với kit: <strong>mỗi worktree một session Claude, mỗi session một feature</strong> — hai luồng không đụng nhau về file, về context, về lịch sử.</p>
+<pre><code>/ck:worktree "feature-payment-momo"
+# mở terminal mới → cd vào worktree → claude
+# → /ck:cook plans/payment-momo/plan.md
+# terminal cũ vẫn đang cook feature khác — không đụng nhau</code></pre>
+<p>Một ngày làm việc kiểu master cho solo-builder: <strong>sáng</strong> <code>/ck:plan --parallel</code> chia việc thành 2-3 phase độc lập → tạo worktree tương ứng → chạy song song. <strong>Chiều</strong> merge từng branch, <code>/ck:review-pr</code> chéo trước khi merge (luồng A review luồng B — reviewer không chấm bài của chính mình, đúng bài học module 9). Đây cũng là nơi duy nhất YOLO mode chấp nhận được: worktree cô lập, không credentials thật, hỏng thì xóa worktree làm lại.</p>
+<p><strong>Và /ck:loop — để agent tự tối ưu qua đêm:</strong> loop chạy N vòng chống lại một <em>metric cơ học</em>: đo → thử thay đổi → đo lại → keep/discard dựa trên git.</p>
+<pre><code>/ck:loop "giảm bundle size của web app, metric: npm run build
+&& du -sk dist, chạy 10 iterations, không được làm fail test suite"</code></pre>
+<p>Metric phù hợp: coverage %, bundle size, thời gian build, Lighthouse score, số lỗi type. Metric KHÔNG phù hợp: "code đẹp hơn", "UX tốt hơn" — loop với metric cảm tính sẽ tự lừa chính nó, y hệt bài học "AI tự chấm điểm mình là anti-pattern" của module 9. Chạy loop trong worktree riêng; sáng dậy đọc journal (agent journal-writer ghi lại quá trình) và cherry-pick những thay đổi được keep.</p>`
+      },
+      {
+        title: "3. Dạy kit theo cách của bạn: skill riêng, hook, MCP",
+        body: `
+<p>Kit mạnh nhất khi nó nói giọng của team bạn. Bốn tầng tùy biến, từ dễ đến sâu:</p>
+<ul>
+<li><strong>Skill riêng</strong> — đây là lúc kỹ năng module 8 gặp quy mô công nghiệp: <code>/ck:skill-creator "tạo skill 'convention-cua-team' từ file docs/code-standards.md: quy tắc đặt tên, cấu trúc folder, format commit"</code>. Skill riêng đặt trong <code>.claude/skills/</code> của <em>project</em> — quy tắc của kit: không sửa global (~/.claude/skills) trừ khi chủ đích, giữ kit portable theo repo.</li>
+<li><strong>Hook/guard riêng</strong> — muốn chặn commit thẳng vào main, cảnh báo khi sửa file config? Thêm hook trong settings, <em>đừng dặn miệng trong prompt</em> — quy tắc dặn miệng bị quên, hook thì không. (Error handling m7 dạng code.)</li>
+<li><strong>MCP servers</strong> — <code>cp claude/.mcp.json.example .mcp.json</code> rồi khai báo database, browser, API nội bộ. Đây là chỗ nối kit với data layer m11 của bạn: agent đọc thẳng SQLite/second brain khi làm việc.</li>
+<li><strong>Output style</strong> — nâng dần lên <code>coding-level-3-senior</code>/<code>4-lead</code>: bớt giải thích, nhiều trade-off, review thẳng tay.</li>
+</ul>
+<p>Chi tiết kỹ thuật đáng nhớ: script Python của skill chạy bằng venv của kit (<code>.claude/skills/.venv/bin/python3</code>), không phải python hệ thống. Và trước khi tùy biến bất cứ gì, đọc 3 file theo thứ tự: <code>rules/CLAUDE.md</code> → <code>workflow-routing.md</code> → <code>SKILLS.md</code> — hiểu routing rồi mới override, không thì kit sẽ "đánh nhau" với instruction của bạn.</p>`
+      },
+      {
+        title: "4. Kinh tế context: 5 nguyên tắc quản trị chi phí",
+        body: `
+<p>Ở quy mô nhiều agent + session dài, token là ngân sách thật. Năm nguyên tắc — mỗi cái đều là bài học cũ của khóa mặc áo mới:</p>
+<ul>
+<li><strong>Session ngắn, mục tiêu đơn.</strong> Xong một mạch việc → <code>/ck:watzup</code> ghi trạng thái → phiên mới. Đừng nuôi session 200k token — AI 'lú' và bạn trả tiền cho sự lú đó.</li>
+<li><strong>Docs là bộ nhớ dài hạn.</strong> <code>docs/codebase-summary.md</code> cập nhật tốt giúp mọi session sau khởi động rẻ hơn nhiều lần so với để agent tự khám phá lại repo. (Second brain m11 áp vào codebase.)</li>
+<li><strong>Chọn flag theo giá.</strong> --fast cho việc rõ; --deep/team/parallel chỉ khi độ phức tạp xứng đáng.</li>
+<li><strong>Plan là tài sản tái sử dụng.</strong> Plan tốt chạy lại được ở session khác (<code>/ck:cook &lt;plan-path&gt;</code>); đầu tư vào plan lời hơn đầu tư vào prompt dài. (Prompt → workflow → skill của m8, thêm nấc: plan.)</li>
+<li><strong>Verify bằng máy, không bằng niềm tin.</strong> Mọi claim "done" phải qua <code>/ck:test</code> hoặc web-testing; agent tự chấm điểm mình là anti-pattern.</li>
+</ul>`
+      },
+      {
+        title: "5. Hướng dẫn thực hành: một ngày ship kiểu master",
+        body: `
+<p>Bài thực hành tốt nghiệp của cả chương trình. Trong <strong>Xưởng thực hành</strong>:</p>
+<ul>
+<li><strong>Bước 1.</strong> Chọn 2 việc độc lập thật sự trong dự án của bạn (không đụng file nhau). Sáng: <code>/ck:plan --parallel</code> → tạo 2 worktree → mỗi worktree một session cook.</li>
+<li><strong>Bước 2.</strong> Chiều: <code>/ck:review-pr</code> chéo (luồng A review luồng B) → merge lần lượt → test toàn bộ.</li>
+<li><strong>Bước 3.</strong> Tạo 1 skill riêng bằng skill-creator từ convention/tài liệu thật của bạn, đặt trong project. Chạy phép thử kích hoạt (m8).</li>
+<li><strong>Bước 4.</strong> Thử 1 loop với metric cơ học (bundle size, coverage...) trong worktree riêng, 5-10 iterations. Ghi lại: keep gì, discard gì.</li>
+<li><strong>Bước 5.</strong> Dán vào ô bài làm: nhật ký ngày song song, skill riêng, kết quả loop, và 3 nguyên tắc kinh tế context bạn đã áp dụng kèm khác biệt nhận thấy. Tick checklist, copy prompt phản biện.</li>
+</ul>
+<div class="callout"><strong>Lời kết toàn khóa:</strong> nhìn lại quãng đường — m1 bạn học phân loại việc cho MỘT trợ lý; m15 bạn điều phối một ĐỘI agent chạy song song qua đêm, với skill riêng mang convention của bạn và hệ dữ liệu bạn sở hữu. Vibeworking master không phải người biết nhiều lệnh nhất — mà là người thiết kế được hệ thống trong đó AI làm việc đúng, có kiểm chứng, và ngày càng rẻ. Giờ thì đi build thôi.</div>`
+      }
+    ]
   }
 };

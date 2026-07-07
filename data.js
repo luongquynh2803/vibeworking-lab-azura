@@ -847,6 +847,218 @@ const curriculum = [
       { front: "Multi-hop query", back: "Câu hỏi phải đi qua nhiều quan hệ nối tiếp mới trả lời được — thế mạnh đặc trưng của knowledge graph so với bảng phẳng." },
       { front: "Entity resolution", back: "Hợp nhất các tên khác nhau của cùng một thực thể ('Cty ABC' = 'ABC Corp') thành một node — không làm thì đồ thị phân mảnh, truy vấn thiếu." }
     ]
+  },
+  {
+    id: "m13",
+    level: "master",
+    number: 13,
+    title: "Vận Hành Engineering Kit: Ask → Plan → Cook",
+    duration: "Tuần 9",
+    focus: "Điều khiển cả một đội agent thay vì một trợ lý",
+    description:
+      "Học viên cài và vận hành một engineering kit (ClaudeKit Engineer / OpenClaw-style) trên Claude Code: hiểu skill–agent–hook, đi vòng lặp Ask → Plan → Cook → Test → Review → Ship an toàn.",
+    objectives: [
+      "Hiểu kiến trúc kit: skills, agents, hooks, slash commands — và vì sao nó không phải nút 'tự code hết'.",
+      "Thuộc vòng lặp chuẩn và bảng routing 10 lệnh cốt lõi theo mức rủi ro.",
+      "Hoàn thành lộ trình 7 ngày làm quen trên project tập luyện, đúng quy tắc an toàn."
+    ],
+    topics: [
+      "Skill (hộp kỹ năng), Agent (vai trò chuyên môn), Hook (lan can an toàn).",
+      "Cài đặt: ck new/init, project tập luyện, output-style theo trình độ.",
+      "Vòng lặp Ask → Plan → Cook → Test → Review → Git/Ship.",
+      "Quy tắc an toàn: không YOLO mode, không paste secret, luôn đọc plan trước khi cook."
+    ],
+    practice:
+      "Dựng project tập luyện, cài kit, đi hết lộ trình 7 ngày (ask, scout, plan, cook, test, review, fix, git) và ship một sản phẩm nhỏ đầu tiên.",
+    output: "Nhật ký 7 ngày + một sản phẩm nhỏ (landing page/tính năng) đã qua đủ vòng lặp plan → cook → test → review.",
+    checklist: [
+      "Kit chạy trong project tập luyện riêng (không phải sản phẩm thật), lệnh /ck: hoạt động.",
+      "Đã đi đủ vòng: ask/scout → plan → cook theo plan → test → code-review → git commit.",
+      "Chưa từng bật YOLO mode; mọi lần AI xin quyền đều đọc trước khi cho phép.",
+      "Nhật ký ghi lại: mỗi ngày làm gì, AI làm gì tốt, chỗ nào phải can thiệp."
+    ],
+    quiz: [
+      {
+        q: "Cách hiểu đúng về một engineering kit (ClaudeKit/OpenClaw-style) là gì?",
+        options: [
+          "Nút bấm 'tự code hết' — mô tả app là xong.",
+          "Bộ khung quy trình + đội agent chuyên môn giúp bạn điều khiển AI coding có trật tự: bạn vẫn là người duyệt.",
+          "Một model AI mạnh hơn Claude thường.",
+          "Công cụ chỉ dành cho lập trình viên chuyên nghiệp."
+        ],
+        answer: 1,
+        explain:
+          "Kit không thay bạn suy nghĩ sản phẩm — nó biến ý tưởng thành các bước rõ ràng (plan) và có lan can an toàn (hook), quyền duyệt vẫn ở bạn."
+      },
+      {
+        q: "Quy tắc 'việc to thì Plan trước, việc nhỏ thì Cook luôn' phản ánh điều gì?",
+        options: [
+          "Plan chỉ để cho đẹp hồ sơ.",
+          "Chi phí lập kế hoạch phải tương xứng độ phức tạp: việc mơ hồ/lớn cần plan để duyệt trước, việc rõ scope thì cook --fast đỡ tốn token.",
+          "Cook luôn luôn tốt hơn Plan.",
+          "Người mới không được dùng Cook."
+        ],
+        answer: 1,
+        explain: "Đây chính là tư duy 'chọn bậc thấp nhất đủ dùng' áp vào quy trình: plan sâu khi rủi ro/độ mơ hồ xứng đáng."
+      },
+      {
+        q: "Vì sao người mới KHÔNG nên dùng YOLO mode (--dangerously-skip-permissions)?",
+        options: [
+          "Vì nó chạy chậm hơn.",
+          "Vì các câu hỏi xin quyền chính là điểm human-in-the-loop cuối cùng — bỏ qua nghĩa là AI sửa file, chạy lệnh mạnh, đụng secrets mà không ai duyệt.",
+          "Vì tốn token hơn.",
+          "Vì lệnh này không tồn tại."
+        ],
+        answer: 1,
+        explain:
+          "Permission prompt là lan can an toàn. Người có kinh nghiệm chỉ bỏ qua trong worktree/branch cô lập không có credentials thật."
+      }
+    ],
+    flashcards: [
+      { front: "Skill / Agent / Hook", back: "Skill: hộp kỹ năng theo việc. Agent: nhân viên AI chuyên môn (planner, tester, reviewer...). Hook: lan can an toàn tự động (chặn file nhạy cảm, nhắc quy tắc)." },
+      { front: "Vòng lặp kit chuẩn", back: "Ask/Scout (hiểu, không sửa file) → Plan (chia việc, duyệt) → Cook (làm theo plan) → Test → Review → Git/Ship." },
+      { front: "Quy tắc an toàn số 1", back: "Không hiểu AI sắp làm gì = chưa approve. Không YOLO mode khi chưa quen; không paste secret; luôn đọc plan trước khi cook." }
+    ]
+  },
+  {
+    id: "m14",
+    level: "master",
+    number: 14,
+    title: "Pipeline Chất Lượng: Plan Sâu, TDD, Fix, Ship",
+    duration: "Tuần 10",
+    focus: "Ép agent đi qua quy trình có kiểm chứng máy",
+    description:
+      "Học viên dùng thành thạo các chế độ plan nâng cao (--deep, --two, red-team), cook TDD, fix phân cấp và nghi thức ship — chất lượng đến từ quy trình, không từ prompt hay.",
+    objectives: [
+      "Chọn đúng flag plan theo độ phức tạp và biết red-team chính plan của mình.",
+      "Hiểu khi nào bắt buộc cook --tdd và cách fix phân cấp (fix / --parallel / debug).",
+      "Vận hành nghi thức ship: test → security-scan → review → ship, với 3 cổng kiểm trước khi tin kết quả."
+    ],
+    topics: [
+      "Plan flags: --fast, --deep/--hard, --two, --parallel, --tdd; plan red-team/validate.",
+      "Cook TDD: red-green-refactor — bắt buộc khi đụng code có người dùng thật.",
+      "Fix phân cấp: fix có log, fix --parallel cho lỗi độc lập, debug khi chưa reproduce.",
+      "Nghi thức ship và 3 cổng: plan rõ chưa / đã test chưa / có secrets không."
+    ],
+    practice:
+      "Chạy một tính năng thật qua pipeline đầy đủ: plan --two (chọn 1 trong 2 phương án) → red-team plan → cook --tdd → test → code-review → ship.",
+    output: "Một tính năng đã ship qua pipeline đầy đủ + bản plan có red-team + ghi chú so sánh 2 phương án.",
+    checklist: [
+      "Plan tạo bằng --two và có ghi chú vì sao chọn phương án A thay vì B.",
+      "Plan đã qua red-team/validate và được sửa ít nhất 1 điểm trước khi cook.",
+      "Cook chạy chế độ --tdd: có test viết trước, xem được test fail rồi mới pass.",
+      "Trước ship: test xanh + code-review xong + không có secret trong commit (3 cổng đều qua)."
+    ],
+    quiz: [
+      {
+        q: "Khi nào flag --two của plan đáng dùng nhất?",
+        options: [
+          "Mọi task, để chắc chắn.",
+          "Các quyết định kiến trúc/hướng đi quan trọng — hai phương án cạnh tranh giúp bạn thấy trade-off thay vì nuốt phương án đầu tiên AI đưa.",
+          "Task sửa text nhỏ.",
+          "Khi muốn tiết kiệm token."
+        ],
+        answer: 1,
+        explain: "--two tốn gấp đôi công plan nên chỉ đáng cho quyết định lớn — đúng tinh thần 'chọn flag theo giá'."
+      },
+      {
+        q: "Cook --tdd chậm hơn ~30%. Khi nào vẫn bắt buộc dùng?",
+        options: [
+          "Không bao giờ, chậm là xấu.",
+          "Khi đụng vào code đang có người dùng thật (production) — test viết trước là bảo hiểm chống hồi quy.",
+          "Chỉ khi viết code mới hoàn toàn.",
+          "Khi muốn code đẹp hơn."
+        ],
+        answer: 1,
+        explain: "Chi phí 30% thời gian đổi lấy việc không phá thứ đang chạy cho user thật — giao dịch luôn hời."
+      },
+      {
+        q: "Red-team một plan nghĩa là gì và vì sao làm TRƯỚC khi cook?",
+        options: [
+          "Tô màu đỏ các phần quan trọng.",
+          "Cho agent tấn công chính plan của mình để tìm lỗ hổng — sửa lỗ hổng trên giấy rẻ hơn nhiều lần sửa trong code.",
+          "Xóa plan và làm lại.",
+          "Chạy plan hai lần."
+        ],
+        answer: 1,
+        explain: "Đây là Verify (module 4) áp vào tầng kế hoạch: phản biện có chủ đích trước khi tốn công thực thi."
+      }
+    ],
+    flashcards: [
+      { front: "Chọn flag plan theo giá", back: "--fast: scope rõ. --deep/--hard: nhiều unknowns, đổi kiến trúc. --two: quyết định lớn cần 2 phương án. --tdd: đụng code production. red-team: tấn công plan trước khi cook." },
+      { front: "Fix phân cấp", back: "/ck:fix kèm log (mặc định) → --parallel khi nhiều lỗi độc lập → /ck:debug khi chưa reproduce được, cần truy vết trước khi sửa." },
+      { front: "3 cổng trước khi tin kết quả", back: "Trước code: plan rõ chưa (mục tiêu, file, tiêu chí, rollback)? Sau code: đã test chưa? Trước push: có secrets trong commit không?" }
+    ]
+  },
+  {
+    id: "m15",
+    level: "master",
+    number: 15,
+    title: "Orchestration, Mở Rộng Kit & Kinh Tế Context",
+    duration: "Tuần 11-12",
+    focus: "Nhiều agent song song, kit tùy biến theo bạn, chi phí tối ưu",
+    description:
+      "Học viên điều phối agent teams, chạy song song bằng worktree, để agent tự tối ưu qua đêm bằng loop, tự tạo skill/hook riêng và làm chủ kinh tế context — đỉnh của lộ trình vibeworking.",
+    objectives: [
+      "Biết khi nào dùng agent team / worktree song song — và khi nào chúng chỉ tốn token.",
+      "Dùng được loop tối ưu theo metric cơ học và tự tạo skill/hook riêng cho convention của team.",
+      "Nắm 5 nguyên tắc kinh tế context: session ngắn, docs là bộ nhớ, flag theo giá, plan là tài sản, verify bằng máy."
+    ],
+    topics: [
+      "Agent teams (/ck:team) và điều kiện dùng: task chia được thành mảnh ít giao nhau.",
+      "Git worktree: mỗi worktree một session một feature, chạy song song thật sự.",
+      "/ck:loop với metric khách quan (bundle size, coverage, Lighthouse) — không dùng metric cảm tính.",
+      "Customize: skill riêng từ code-standards, hooks/guards, MCP servers, output styles."
+    ],
+    practice:
+      "Một ngày làm việc kiểu master: sáng plan --parallel chia 2 nhánh độc lập → 2 worktree chạy song song → chiều review chéo và merge; kèm tạo 1 skill riêng đóng gói convention của bạn/team.",
+    output: "Hai nhánh việc hoàn thành song song trong một ngày + một skill riêng nằm trong .claude/skills/ của project.",
+    checklist: [
+      "Hai worktree chạy 2 việc độc lập thật sự (không đụng file nhau), review chéo trước khi merge.",
+      "Skill riêng tạo bằng skill-creator từ tài liệu convention thật, đặt trong project (không sửa global).",
+      "Đã thử 1 loop với metric cơ học chạy được bằng một lệnh, ghi lại kết quả keep/discard.",
+      "Áp dụng ít nhất 3/5 nguyên tắc kinh tế context và ghi nhận khác biệt chi phí/chất lượng."
+    ],
+    quiz: [
+      {
+        q: "Khi nào KHÔNG nên dùng agent team?",
+        options: [
+          "Khi task chia được thành các module độc lập.",
+          "Task nhỏ dưới 1 giờ hoặc task cần một dòng suy luận liền mạch — team lúc này chỉ tốn token và gây conflict.",
+          "Khi có nhiều hơn 2 việc.",
+          "Không bao giờ nên dùng."
+        ],
+        answer: 1,
+        explain: "Orchestration có 'thuế token'. Task dính chùm hoặc quá nhỏ thì một agent làm liền mạch tốt hơn."
+      },
+      {
+        q: "Metric nào phù hợp cho /ck:loop tự tối ưu qua đêm?",
+        options: [
+          "'Code đẹp hơn' và 'UX tốt hơn'.",
+          "Metric cơ học đo được bằng một lệnh: bundle size, coverage %, thời gian build, Lighthouse score.",
+          "Cảm nhận của agent về chất lượng.",
+          "Số dòng code viết được."
+        ],
+        answer: 1,
+        explain: "Loop đo → thử → đo lại → keep/discard. Metric chủ quan khiến loop tự lừa chính nó — agent tự chấm điểm mình là anti-pattern."
+      },
+      {
+        q: "Nguyên tắc 'docs là bộ nhớ dài hạn' nghĩa là gì trong kinh tế context?",
+        options: [
+          "Viết docs cho đẹp hồ sơ.",
+          "codebase-summary/architecture docs cập nhật tốt giúp mọi session sau khởi động rẻ hơn nhiều lần so với để agent tự khám phá lại repo.",
+          "Docs thay thế hoàn toàn code.",
+          "Chỉ dự án lớn mới cần docs."
+        ],
+        answer: 1,
+        explain: "Đây là second brain (m11) áp vào codebase: tri thức nằm trong file bền vững, không nằm trong session sẽ trôi."
+      }
+    ],
+    flashcards: [
+      { front: "Điều kiện dùng agent team", back: "Task chia được thành mảnh ít giao nhau, mỗi teammate một module rõ + tiêu chí đo được. Task <1 giờ hoặc suy luận liền mạch → một agent tốt hơn." },
+      { front: "Worktree song song", back: "Mỗi git worktree một session một feature — hai luồng không đụng nhau. Sáng chia việc, chiều review chéo rồi merge lần lượt." },
+      { front: "5 nguyên tắc kinh tế context", back: "Session ngắn mục tiêu đơn · docs là bộ nhớ dài hạn · chọn flag theo giá · plan là tài sản tái sử dụng · verify bằng máy, không bằng niềm tin." }
+    ]
   }
 ];
 

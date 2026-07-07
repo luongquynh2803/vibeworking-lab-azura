@@ -29,7 +29,10 @@ const myProject = {
     { moduleId: "m9", status: "now", note: "Chưa có tests/ — việc chặn phát hành" },
     { moduleId: "m10", status: "next", note: "Định chia sẻ cho 2 shop bạn sau khi test" },
     { moduleId: "m11", status: "next", note: "Phản hồi đang rải 4 file export khác cột" },
-    { moduleId: "m12", status: "later", note: "Chưa có nhu cầu câu hỏi đa bước" }
+    { moduleId: "m12", status: "later", note: "Chưa có nhu cầu câu hỏi đa bước" },
+    { moduleId: "m13", status: "later", note: "Sản phẩm chưa có thành phần code lớn — học khi mở rộng" },
+    { moduleId: "m14", status: "later", note: "" },
+    { moduleId: "m15", status: "later", note: "" }
   ],
   modules: {
     m9: {

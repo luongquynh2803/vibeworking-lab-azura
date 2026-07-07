@@ -207,17 +207,19 @@ function renderProgress() {
 }
 
 function renderMetrics() {
-  const foundationAll = curriculum.filter((m) => m.level === "foundation");
-  const advancedAll = curriculum.filter((m) => m.level === "advanced");
-  const foundationDone = foundationAll.filter((m) => state.done.has(m.id)).length;
-  const advancedDone = advancedAll.filter((m) => state.done.has(m.id)).length;
+  const byLevel = (level) => curriculum.filter((m) => m.level === level);
+  const doneIn = (mods) => mods.filter((m) => state.done.has(m.id)).length;
+  const foundationAll = byLevel("foundation");
+  const advancedAll = byLevel("advanced");
+  const masterAll = byLevel("master");
   const quizzesPassed = curriculum.filter((m) => {
     const score = quizScore(m);
     return score && score.correct === score.total;
   }).length;
   const metrics = [
-    { value: `${foundationDone}/${foundationAll.length}`, label: "module Foundation hoàn thành" },
-    { value: `${advancedDone}/${advancedAll.length}`, label: "module Advanced hoàn thành" },
+    { value: `${doneIn(foundationAll)}/${foundationAll.length}`, label: "module Foundation hoàn thành" },
+    { value: `${doneIn(advancedAll)}/${advancedAll.length}`, label: "module Advanced hoàn thành" },
+    { value: `${doneIn(masterAll)}/${masterAll.length}`, label: "module Master hoàn thành" },
     { value: `${quizzesPassed}/${curriculum.length}`, label: "quiz đạt điểm tuyệt đối" }
   ];
   document.getElementById("metricRow").innerHTML = metrics
@@ -469,7 +471,7 @@ function renderModuleDetail() {
     <div class="module-hero">
       <div class="module-meta">
         <span class="pill">Module ${module.number}</span>
-        <span class="pill">${module.level === "foundation" ? "Cơ bản" : "Nâng cao"}</span>
+        <span class="pill">${{ foundation: "Cơ bản", advanced: "Nâng cao", master: "Master" }[module.level] || module.level}</span>
         <span class="pill">${module.duration}</span>
       </div>
       <div class="module-title">

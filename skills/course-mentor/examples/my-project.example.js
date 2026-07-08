@@ -34,7 +34,9 @@ const myProject = {
     { moduleId: "m14", status: "later", note: "" },
     { moduleId: "m15", status: "later", note: "" },
     { moduleId: "m16", status: "later", note: "Trợ lý thường trực hữu ích khi vận hành nhiều kênh khách hàng" },
-    { moduleId: "m17", status: "later", note: "" }
+    { moduleId: "m17", status: "later", note: "" },
+    { moduleId: "m18", status: "later", note: "" },
+    { moduleId: "m19", status: "later", note: "" }
   ],
   modules: {
     m9: {

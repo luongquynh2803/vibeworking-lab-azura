@@ -1,6 +1,6 @@
 # Hướng dẫn sử dụng Vibeworking Lab
 
-Công cụ tự học **Agentic Vibe Working** — từ tư duy làm việc với AI đến xây dựng, kiểm thử, thương mại hóa Agent Skills và điều phối cả đội agent. 17 module (3 cấp độ: Cơ bản, Nâng cao, Master), học bằng cách làm trên chính dự án của bạn.
+Công cụ tự học **Agentic Vibe Working** — từ tư duy làm việc với AI đến xây dựng, kiểm thử, thương mại hóa Agent Skills và điều phối cả đội agent. 19 module (3 cấp độ: Cơ bản, Nâng cao, Master), học bằng cách làm trên chính dự án của bạn.
 
 ---
 
@@ -30,7 +30,8 @@ python3 -m http.server 8080
 | **Nâng cao — quy trình** | M6-M7: chưng cất tri thức thành workflow, workflow chuyên nghiệp | 2 tuần |
 | **Nâng cao — skill** | M8-M10: build skill, kiểm thử, đóng gói & bán | 3-4 tuần |
 | **Nâng cao — dữ liệu** | M11-M12: data layer / second brain, knowledge graph | 2 tuần |
-| **Master** | M13-M15: vận hành engineering kit (ClaudeKit), pipeline TDD/red-team, orchestration đa agent · M16-M17: OpenClaw — trợ lý AI cá nhân tự vận hành, từ cài đặt đến hệ điều hành cá nhân | 5-6 tuần |
+| **Master — engineering kit** | M13-M15: vận hành ClaudeKit, pipeline TDD/red-team, orchestration đa agent | 3-4 tuần |
+| **Master — OpenClaw** | M16-M19: trợ lý AI cá nhân tự vận hành — cài đặt, trí nhớ & persona, automation & coding harness, security & production | 4 tuần |
 
 Học tuần tự — module sau xây trên sản phẩm của module trước (workflow M6 → skill M8 → test M9 → đóng gói M10). Track **Master** dành cho người đã đi hết 12 module: điều kiện thực tế là bạn đã ship ít nhất một sản phẩm và quen nhịp plan → làm → kiểm chứng.
 

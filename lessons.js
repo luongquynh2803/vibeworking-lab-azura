@@ -331,7 +331,7 @@ BÀI HỌC: điều tôi sẽ làm khác ở dự án sau: ...</code></pre>
   },
 
   m5: {
-    readingTime: "11 phút đọc",
+    readingTime: "12 phút đọc",
     sections: [
       {
         title: "1. Bức tranh công cụ: hai loại assistant",
@@ -362,7 +362,8 @@ BÀI HỌC: điều tôi sẽ làm khác ở dự án sau: ...</code></pre>
 <li><strong>Có dữ liệu nhạy cảm không?</strong> Sản phẩm chứa thông tin khách hàng, thanh toán, đăng nhập → đây là ranh giới cứng: cần người có chuyên môn bảo mật rà soát, đừng tự tin vì "chạy được".</li>
 <li><strong>Việc này giống mẫu có sẵn không?</strong> Form khảo sát, đặt lịch, bảng tính tự động — no-code (Google Forms, Airtable, Zapier/Make...) có thể nhanh và bền hơn code tự viết. AI coding thắng khi bạn cần thứ <em>đúng ý mình</em> mà mẫu có sẵn không chiều được.</li>
 </ul>
-<p>Ranh giới prototype → sản phẩm thật: prototype để <em>kiểm chứng ý tưởng</em> — chạy được, trông ổn, đủ demo. Sản phẩm thật cần: bảo mật, xử lý lỗi khi người dùng nhập bậy, sao lưu dữ liệu, hiệu năng khi đông người dùng, và ai đó bảo trì khi hỏng. Chuyển giao cho developer? Chính bản product brief + prototype của bạn là tài liệu bàn giao tốt nhất họ từng nhận.</p>`
+<p>Ranh giới prototype → sản phẩm thật: prototype để <em>kiểm chứng ý tưởng</em> — chạy được, trông ổn, đủ demo. Sản phẩm thật cần: bảo mật, xử lý lỗi khi người dùng nhập bậy, sao lưu dữ liệu, hiệu năng khi đông người dùng, và ai đó bảo trì khi hỏng. Chuyển giao cho developer? Chính bản product brief + prototype của bạn là tài liệu bàn giao tốt nhất họ từng nhận.</p>
+<div class="callout callout-warning"><strong>Checkpoint bảo mật ngay từ prototype:</strong> không dán API key, token, dữ liệu khách hàng thật hoặc file nội bộ nhạy cảm vào prompt nếu chưa có quyền; không deploy công khai form thu dữ liệu thật khi chưa biết dữ liệu đi đâu; và luôn ghi rõ "prototype này chưa qua kiểm tra production" trong bài làm. Bảo mật không bắt đầu ở module 19 — module 19 chỉ nâng nó thành hệ thống.</div>`
       },
       {
         title: "4. Làm việc hiệu quả trong dự án dài",
@@ -926,7 +927,7 @@ từ chối lịch sự, mô tả đúng định dạng input cần có.</code><
   },
 
   m11: {
-    readingTime: "15 phút đọc",
+    readingTime: "16 phút đọc",
     sections: [
       {
         title: "1. Nút thắt tiếp theo: skill giỏi đến đâu cũng đói dữ liệu",
@@ -957,6 +958,7 @@ từ chối lịch sự, mô tả đúng định dạng input cần có.</code><
 <li><strong>Định danh và quan hệ thế nào?</strong> Mỗi bản ghi một ID không đổi (KH-0042); bảng khác nhắc đến nó bằng ID chứ không bằng tên (tên đổi, ID không). Quan hệ ghi tường minh: Phản hồi có cột <code>khach_id</code>.</li>
 </ul>
 <p>Ba lỗi schema kinh điển: <strong>một cột nhồi nhiều nghĩa</strong> ("Ghi chú" chứa cả số điện thoại, cả trạng thái đơn — tách ra); <strong>ngày tháng tự do</strong> ("5/6", "hôm qua", "T6 tuần trước" — chuẩn một định dạng YYYY-MM-DD); <strong>phân loại tùy hứng</strong> ("giao hàng", "ship", "vận chuyển" là ba nhãn khác nhau trong máy — chốt danh sách nhãn đóng, chọn chứ không gõ).</p>
+<p><strong>Privacy-by-design</strong> cũng là một phần của schema, không phải việc làm sau. Với mỗi thực thể, thêm một dòng quyết định: dữ liệu này có định danh người thật không, AI được đọc hay chỉ được đọc bản ẩn danh, ai có quyền ghi, ai có quyền export, backup nằm ở đâu. Một cột <code>customer_name</code> tiện trong demo nhưng nguy hiểm trong production; một ID như <code>KH-0042</code> thường đủ cho phân tích mà không lộ tên thật.</p>
 <p>Và một mẹo rất module-3: <em>đưa schema cho AI phản biện trước khi dùng</em> — "đây là schema của tôi, hãy thử nhập 5 tình huống dữ liệu thật này vào và chỉ ra chỗ nào lúng túng".</p>`
       },
       {
@@ -995,8 +997,9 @@ từ chối lịch sự, mô tả đúng định dạng input cần có.</code><
 <li><strong>Bước 1.</strong> Kiểm kê: liệt kê mọi loại dữ liệu skill/workflow của bạn <em>ăn vào</em> và <em>nhả ra</em>. Mỗi loại đang sống ở đâu, dạng gì?</li>
 <li><strong>Bước 2.</strong> Chọn bậc cho từng loại theo nguyên tắc mục 2, ghi rõ lý do (vì sao không thấp hơn/cao hơn).</li>
 <li><strong>Bước 3.</strong> Thiết kế schema (mục 3): thực thể, thuộc tính bắt buộc, ID, nhãn chuẩn. Cho AI phản biện schema bằng 5 tình huống dữ liệu thật.</li>
-<li><strong>Bước 4.</strong> Dựng thật theo setup mục 5: tạo cấu trúc thư mục + database, ghi quy ước vào CLAUDE.md, nạp một lô dữ liệu thật.</li>
-<li><strong>Bước 5.</strong> Nghiệm thu bằng 3 truy vấn có ý nghĩa công việc (không phải "đếm số dòng" — mà là câu hỏi bạn thật sự cần đáp án). Dán schema + 3 truy vấn + kết quả vào ô bài làm, tick checklist, copy prompt phản biện.</li>
+<li><strong>Bước 4.</strong> Gắn nhãn mức nhạy cảm cho từng loại dữ liệu: công khai / nội bộ / nhạy cảm / không đưa vào AI. Với dữ liệu nhạy cảm, viết cách ẩn danh hóa hoặc lý do không dùng.</li>
+<li><strong>Bước 5.</strong> Dựng thật theo setup mục 5: tạo cấu trúc thư mục + database, ghi quy ước vào CLAUDE.md, nạp một lô dữ liệu thật.</li>
+<li><strong>Bước 6.</strong> Nghiệm thu bằng 3 truy vấn có ý nghĩa công việc (không phải "đếm số dòng" — mà là câu hỏi bạn thật sự cần đáp án). Dán schema + 3 truy vấn + kết quả + quyết định quyền truy cập vào ô bài làm, tick checklist, copy prompt phản biện.</li>
 </ul>
 <div class="callout"><strong>Nhìn về module 12:</strong> data layer của bạn giờ trả lời tốt câu hỏi "cái gì" và "bao nhiêu". Còn loại câu hỏi thứ ba — "những thứ này <em>liên quan với nhau thế nào</em>" — cần thêm một lớp nữa: knowledge graph.</div>`
       }
@@ -1098,7 +1101,7 @@ Xuất dạng bảng: chu_the | quan_he | doi_tuong | nguon"</code></pre>
       {
         title: "1. Bước vào Master: từ một trợ lý sang cả một đội",
         body: `
-<p>Chào mừng đến track Master. Điều kiện vào: bạn đã đi hết 12 module — biết thiết kế context, xây workflow, đóng gói skill, và có hệ thống dữ liệu riêng. Track này trả lời câu hỏi tiếp theo: <strong>chuyện gì xảy ra khi không phải một AI, mà cả một đội agent làm việc cho bạn?</strong></p>
+<p>Chào mừng đến track Master. Điều kiện vào: bạn đã đi hết 12 module core (Foundation + Advanced) — biết thiết kế context, xây workflow, đóng gói skill, và có hệ thống dữ liệu riêng. Track này trả lời câu hỏi tiếp theo: <strong>chuyện gì xảy ra khi không phải một AI, mà cả một đội agent làm việc cho bạn?</strong></p>
 <p>Công cụ của chặng này là <strong>engineering kit</strong> — bộ quy trình + agent + skill + hook cài vào Claude Code (tiêu biểu: ClaudeKit Engineer; các kit kiểu OpenClaw tương tự về nguyên lý). Nếu Claude Code là một nhân viên giỏi, kit biến nó thành cả một đội: planner nghĩ kiến trúc, developer code, tester kiểm thử, reviewer soi lỗi, docs-manager cập nhật tài liệu. Một kit điển hình có 13 agents, 88 skills và các slash command như <code>/ck:plan</code>, <code>/ck:cook</code> chạy cả quy trình bằng một dòng.</p>
 <p>Ba khối lego của kit — và bạn sẽ nhận ra chúng là phiên bản công nghiệp hóa của những gì bạn đã học:</p>
 <ul>
@@ -1335,7 +1338,121 @@ trang upgrade, webhook Stripe"
 <li><strong>Bước 4.</strong> Thử 1 loop với metric cơ học (bundle size, coverage...) trong worktree riêng, 5-10 iterations. Ghi lại: keep gì, discard gì.</li>
 <li><strong>Bước 5.</strong> Dán vào ô bài làm: nhật ký ngày song song, skill riêng, kết quả loop, và 3 nguyên tắc kinh tế context bạn đã áp dụng kèm khác biệt nhận thấy. Tick checklist, copy prompt phản biện.</li>
 </ul>
-<div class="callout"><strong>Lời kết chặng engineering kit:</strong> nhìn lại quãng đường — m1 bạn học phân loại việc cho MỘT trợ lý; m15 bạn điều phối một ĐỘI agent chạy song song qua đêm, với skill riêng mang convention của bạn và hệ dữ liệu bạn sở hữu. Hai module cuối (m16-m17) đưa mọi thứ về "nhà": một trợ lý cá nhân sống trên máy bạn, trực chiến 24/7 trong chính app chat bạn dùng hằng ngày.</div>`
+<div class="callout"><strong>Lời kết chặng engineering kit:</strong> nhìn lại quãng đường — m1 bạn học phân loại việc cho MỘT trợ lý; m15 bạn điều phối một ĐỘI agent chạy song song qua đêm, với skill riêng mang convention của bạn và hệ dữ liệu bạn sở hữu. Năm module cuối đưa mọi thứ về "nhà": trước hết hiểu hạ tầng của một agent có thể điều khiển từ xa, sau đó dựng trợ lý cá nhân trực chiến 24/7 trong chính app chat bạn dùng hằng ngày.</div>`
+      }
+    ]
+  },
+
+  m20: {
+    readingTime: "19 phút đọc",
+    sections: [
+      {
+        title: "1. Mobile Agent: điện thoại là bảng điều khiển, không nhất thiết là nơi AI chạy",
+        body: `
+<p>Bài viết gốc mô tả một nỗi khó chịu rất thật: AI của bạn chỉ tồn tại trong tab chat hoặc cửa sổ terminal. Bạn đóng máy, phiên làm việc dừng; bạn ra đường, không còn cách giao việc. Module này biến cảm giác đó thành một bản thiết kế có thể làm được.</p>
+<p><strong>Mobile Agent</strong> không đơn giản là chatbot có app iOS/Android, và cũng không đòi model phải chạy bên trong điện thoại. Trong module này, đó là một hệ thống agent mà <strong>điện thoại trở thành control plane trong túi</strong>: bạn khởi tạo việc, theo dõi, trả lời câu hỏi, đổi hướng, phê duyệt, xem bằng chứng và dừng agent trong khi phần thực thi nằm ở một nơi khác.</p>
+<pre><code>CONTROL PLANE TRONG TÚI       EXECUTION PLANE              WORK ENVIRONMENT
+Điện thoại / app chat   →   Laptop, Mac mini, VPS   →   File, Git, browser, API
+Start · Monitor · Clarify    hoặc cloud nhà cung cấp       tool, credential, log
+Approve · Review · Stop    ←   tiến độ / bằng chứng   ←   kết quả / lỗi / cảnh báo</code></pre>
+<p>Đây là khái niệm quan trọng nhất của cả bài: <strong>mobile nói bạn điều khiển từ đâu, không nói agent chạy ở đâu</strong>. Một việc trông y hệt trên màn hình điện thoại có thể đang chạy trên laptop ở nhà, VPS bạn thuê, hay máy ảo của nhà cung cấp. Nơi thực thi quyết định file nào agent thấy, credential nào nó dùng, ai bảo trì máy và việc có tiếp tục khi laptop ngủ hay không.</p>`
+      },
+      {
+        title: "2. Bốn mô hình Mobile Agent: Dispatch, Remote Control, Cloud Delegation, Channel",
+        body: `
+<p>Một app có thể trộn nhiều mô hình, nhưng bạn nên tách chúng ra để biết mình đang dùng cái gì:</p>
+<ul>
+<li><strong>Dispatch — giao việc:</strong> bạn nhắn một nhiệm vụ từ điện thoại; app đánh thức hoặc tạo một phiên trên máy đã ghép nối. Phù hợp “hãy bắt đầu làm việc này, tôi sẽ xem sau”.</li>
+<li><strong>Remote Control — lái phiên đang chạy:</strong> agent vẫn thực thi trên máy của bạn; điện thoại nhận live state để bạn tiếp tục hội thoại, phê duyệt và review. Host phải online; local file, tool và config vẫn ở host.</li>
+<li><strong>Cloud Delegation — giao cho cloud:</strong> nhà cung cấp tạo môi trường thực thi của họ. Bạn có thể đóng app, tắt laptop mà việc vẫn chạy; đổi lại agent chỉ có dữ liệu, repo, connector và quyền bạn đã cấp cho cloud.</li>
+<li><strong>Channel/Event-driven — kênh hoặc sự kiện kích hoạt:</strong> Telegram, Discord, iMessage, Slack, webhook hay cảnh báo CI trở thành trigger. Agent không chỉ trả lời bạn; nó phản ứng khi có sự kiện đúng điều kiện.</li>
+</ul>
+<p>Vòng điều khiển chuẩn của cả bốn mô hình là <strong>Start → Monitor → Clarify → Approve → Review → Stop</strong>. Nếu một giải pháp mobile chỉ cho gửi prompt và xem câu trả lời, nhưng không cho bạn thấy trạng thái, can thiệp khi agent rẽ nhánh, phê duyệt hành động rủi ro hay dừng khẩn cấp, nó vẫn gần chatbot từ xa hơn là một control plane trưởng thành.</p>
+<div class="callout"><strong>Bài test 30 giây:</strong> hỏi “agent chạy ở máy nào; máy nào phải còn bật; file/credential/log nằm ở đâu; nút dừng ở đâu?”. Không trả lời được bốn câu này thì chưa được gọi hệ thống là “24/7”.</div>`
+      },
+      {
+        title: "3. Từ Telegram tự dựng đến luồng mobile chính thức của Anthropic và OpenAI",
+        body: `
+<p><em>Ảnh chụp tính năng ngày 15/07/2026; tính năng, plan và khu vực có thể thay đổi. Luôn mở link tài liệu chính thức trước khi thực hành.</em></p>
+<p><strong>Tự dựng Telegram bot:</strong> đây là mô hình trong bài viết gốc. Telegram là channel; code cầu nối chuyển tin đến agent CLI trên VPS/Mac mini; agent làm việc trong workspace bạn quản lý. Bạn có độ tùy biến cao nhất và có thể nối automation bất kỳ, đổi lại bạn chịu trách nhiệm xác thực người gửi, bot token, process nền, update, log, backup và incident response.</p>
+<p><strong>Anthropic có ba đường mobile đáng phân biệt.</strong> <a href="https://claude.com/download" target="_blank" rel="noreferrer">Cowork Dispatch</a> ghép app Claude mobile với Desktop để giao việc cho desktop; máy và app Desktop phải còn chạy. <a href="https://code.claude.com/docs/en/remote-control" target="_blank" rel="noreferrer">Claude Code Remote Control</a> nối app/web với phiên CLI hoặc VS Code trên máy của bạn: local tool/config/file vẫn dùng được, host chỉ tạo kết nối HTTPS đi ra chứ không mở cổng inbound. <a href="https://code.claude.com/docs/en/web-quickstart" target="_blank" rel="noreferrer">Claude Code on the web/mobile</a> lại chạy trong VM do Anthropic quản lý, thường clone repo GitHub, làm việc và đẩy branch để bạn review; nó tiếp tục khi bạn ngắt kết nối nhưng không tự thấy môi trường local.</p>
+<p><strong>OpenAI hiện tách việc non-tech và coding.</strong> Theo <a href="https://help.openai.com/en/articles/20001275/" target="_blank" rel="noreferrer">Help Center hiện hành</a>, <em>ChatGPT Work</em> chạy trên cloud ở web/mobile cho các việc research và tạo deliverable; nó có thể chạy một lần, theo lịch/trigger hoặc monitor, nhưng không trực tiếp đọc file trên máy của bạn. <em>Codex</em> dùng cho công việc phần mềm; app ChatGPT mobile có khu Remote cho các task desktop được hỗ trợ. <a href="https://openai.com/index/work-with-codex-from-anywhere/" target="_blank" rel="noreferrer">Trang giới thiệu Codex mobile</a> mô tả việc xem live context, terminal output, diff, test và approval từ host đã kết nối; file, credential và quyền vẫn ở host. Do đang rollout, tên tab, host được hỗ trợ và phạm vi tài khoản có thể khác; app và trang Help Center hiện hành là nguồn quyết định.</p>
+<pre><code>Phương án              Việc chạy ở đâu        Máy bạn phải bật?  Thế mạnh
+Telegram tự dựng      VPS/Mac mini của bạn      Tùy host              Tùy biến cao nhất
+Claude Cowork Dispatch Desktop đã ghép nối       Có                    Dễ giao việc non-tech
+Claude Remote Control  Máy chạy CLI/VS Code      Có                    Giữ local tool/config
+Claude Code cloud      VM của Anthropic           Không                 Repo task chạy độc lập
+ChatGPT Work mobile    Cloud của OpenAI            Không                 Research/deliverable
+Codex Remote mobile    Host Codex đã kết nối     Có                    Live diff/test/approval</code></pre>
+<p><strong>Lộ trình khuyên dùng cho non-tech:</strong> bắt đầu bằng luồng chính thức cloud hoặc Dispatch để học vòng Start–Monitor–Approve–Review; chọn Remote Control khi cần file/tool local; chỉ tự dựng Telegram + VPS khi bạn thực sự cần workflow riêng, kênh/sự kiện riêng, quyền kiểm soát cao hơn và chấp nhận gánh nặng vận hành.</p>`
+      },
+      {
+        title: "4. VPS là gì — một execution host, không phải định nghĩa của Mobile Agent",
+        body: `
+<p>VPS là một máy tính ảo bạn thuê trong data center. Nó có ổ đĩa, hệ điều hành, mạng và địa chỉ riêng; nó không có màn hình trước mặt bạn. Hình dung như thuê một căn hộ trong tòa nhà máy tính: phần của bạn tách khỏi người khác, nhưng hạ tầng vật lý do nhà cung cấp lo.</p>
+<p>Điểm đáng tiền nhất không phải “sức mạnh”, mà là <strong>nó vẫn bật khi laptop của bạn tắt</strong>. Con số 4–6 USD/tháng trong bài viết là một ví dụ trải nghiệm, không phải báo giá cố định; giá, thuế, băng thông và cấu hình thay đổi theo nhà cung cấp, nên phải kiểm tra ngay lúc mua.</p>
+<pre><code>Lựa chọn          Mạnh ở đâu                 Đổi lại
+VPS cloud          Bật 24/7, truy cập ở đâu cũng được  Phải harden server, trả phí tháng
+Máy mini tại nhà  Dữ liệu nằm trong nhà, toàn quyền    Tự lo điện, mạng, phần cứng
+Laptop cá nhân    Không tốn thêm, dễ thử             Không thật sự 24/7, lẫn dữ liệu chính
+Lab/sandbox        An toàn để học, có thể xóa làm lại  Chưa đại diện cho production</code></pre>
+<p>Chọn bằng bốn câu: việc có thật sự cần chạy khi bạn ngủ không; dữ liệu có được phép rời máy cá nhân không; bạn có sẵn sàng tự bảo trì không; và nếu hệ thống dừng hai ngày thì thiệt hại là gì. Nếu câu trả lời còn mơ hồ, bắt đầu bằng lab thay vì nhập thẻ thanh toán.</p>`
+      },
+      {
+        title: "5. Sáu lớp của một Mobile Agent tự vận hành — hỏng lớp nào, sửa lớp đó",
+        body: `
+<p><strong>1. Host</strong> là máy agent đang sống. <strong>2. Remote access</strong> thường là SSH — một đường hầm mã hóa để bạn mở terminal trên máy đó. <strong>3. Runtime</strong> là agent CLI hoặc gateway thật sự hiểu và làm việc. <strong>4. Persistence</strong> giữ process sống sau khi bạn ngắt SSH. <strong>5. Workspace</strong> chứa file, Git, log và kết quả. <strong>6. Channel</strong> là giao diện từ điện thoại, ví dụ bot Telegram.</p>
+<p>Sáu lớp này giúp bạn không nói chung chung “AI bị hỏng”. Không SSH được có thể là host/mạng. SSH được nhưng bot im lặng có thể là process/channel. Agent trả lời nhưng không thấy file mới có thể là workspace/Git sync. Mỗi triệu chứng trỏ vào một tầng.</p>
+<p><strong>Telegram không phải bộ não.</strong> Nó chỉ là cửa sổ giao việc. Bot nhận tin, cầu nối chuyển tin đến agent, agent thao tác trên host, kết quả đi ngược lại. Vì thế, “chỉ mình tôi biết tên bot” không phải một thiết kế bảo mật. Cần xác thực người gửi, allowlist chủ sở hữu và phân quyền độc lập ở runtime.</p>
+<div class="callout"><strong>Quy tắc thiết kế:</strong> vẽ sáu lớp trước khi cài thứ gì. Cạnh mỗi mũi tên, ghi: dữ liệu gì đi qua, ai có quyền gửi, secret nào được dùng, log nằm ở đâu. Sơ đồ đó là threat model đầu tiên của bạn.</div>`
+      },
+      {
+        title: "6. Xóa mù terminal: không cần thuộc nhiều lệnh, cần có phản xạ an toàn",
+        body: `
+<p>SSH giống TeamViewer ở mục tiêu — điều khiển một máy ở xa — nhưng giao diện là dòng lệnh. Terminal không “thông minh” hay “nguy hiểm” tự thân; nó chỉ là một giao diện rất trực tiếp. Điểm nguy hiểm là lệnh được thực thi ngay, và thường không có nút Undo.</p>
+<pre><code>Nhóm thao tác       Lệnh quen mặt          Câu hỏi trước khi chạy
+Mình đang ở đâu?    pwd, ls, cd              Đúng host và đúng folder chưa?
+Đọc file/log          less, tail              Chỉ đọc hay sẽ làm thay đổi?
+Xem process/tài nguyên ps, top, df             Process nào, user nào, ổ đĩa còn bao nhiêu?
+Kiểm tra thay đổi    git status, git diff   File nào đã đổi, có secret không?
+Thoát an toàn          exit                    Process có phụ thuộc phiên này không?</code></pre>
+<p>Năm phản xạ cho người mới: (1) dùng <code>pwd</code> trước khi sửa/xóa; (2) dán từng lệnh, không dán một khối mình không hiểu; (3) hỏi AI giải thích lệnh, tác động và cách hoàn tác trước; (4) không dùng quyền quản trị chỉ vì gặp lỗi permission; (5) không bao giờ chạy một script tải từ Internet nếu chưa kiểm tra nguồn và nội dung.</p>
+<p>AI có thể đồng hành rất tốt trong quá trình setup, nhưng bạn vẫn là người chịu trách nhiệm cho câu lệnh. Prompt hữu ích: <em>“Giải thích lệnh này theo từng phần; nó đọc hay ghi gì; rủi ro lớn nhất; cách kiểm tra trước và cách rollback. Chưa được yêu cầu tôi chạy.”</em></p>`
+      },
+      {
+        title: "7. Máy chạy 24/7 không có nghĩa agent chạy 24/7",
+        body: `
+<p>Đây là cú vấp kinh điển: bạn SSH vào VPS, chạy agent, thấy nó hoạt động, rồi đóng terminal. Process cũng dừng theo phiên. VPS vẫn bật; agent thì không. Để sống qua lúc bạn ngắt kết nối, process cần một cơ chế persistence.</p>
+<ul>
+<li><strong>tmux/screen:</strong> phù hợp giai đoạn học và giám sát thủ công; bạn rời phiên rồi quay lại xem.</li>
+<li><strong>Service manager:</strong> phù hợp khi cần tự khởi động cùng máy, tự restart khi lỗi và có status/log chuẩn.</li>
+<li><strong>Cron/scheduler:</strong> phù hợp việc chạy theo giờ; nó không thay thế service cho một agent phải lắng nghe liên tục.</li>
+</ul>
+<p>Vận hành không dừng ở “start”. Bạn cần biết <strong>status</strong> (nó còn sống không), <strong>logs</strong> (nó đang làm gì), <strong>restart</strong> (khởi động lại có kiểm soát), <strong>stop</strong> (dừng khẩn cấp) và <strong>rollback</strong> (quay về bản tốt gần nhất). Viết sáu thao tác này thành runbook một trang trước khi hệ thống hỏng.</p>
+<p>Git trong câu chuyện gốc là cây cầu giữa máy cá nhân và host: agent làm trên file có lịch sử, bạn xem được nó đổi gì và có đường quay về. Nhưng Git không phải kho secret, không phải backup cho toàn bộ server và không tự giải quyết xung đột khi hai máy cùng sửa.</p>`
+      },
+      {
+        title: "8. Credential và quyền: cho agent đủ tay chân, không đưa chìa khóa tổng",
+        body: `
+<p>Một Mobile Agent tự vận hành có thể cần SSH key, API key của model, bot token, Git credential và quyền đọc/ghi workspace. Mỗi secret là một cánh cửa. Câu hỏi không phải “agent có cần credential không?” mà là “nó cần credential nào cho đúng một việc, trong bao lâu, và nếu lộ thì mất gì?”</p>
+<ul>
+<li>Tạo user riêng, thư mục riêng và quyền tối thiểu cho agent; không chạy mọi thứ bằng tài khoản quản trị.</li>
+<li>Secret ở biến môi trường/kho secret phù hợp, không dán vào prompt, log, screenshot hay Git.</li>
+<li>Đặt spending limit và cảnh báo chi phí; agent 24/7 có thể tạo chi phí 24/7 nếu loop bị lỗi.</li>
+<li>Backup trước thay đổi lớn và thử khôi phục; backup chưa thử chỉ là một niềm tin.</li>
+<li>Giữ human gate cho gửi ra ngoài, thanh toán, xóa dữ liệu, merge/deploy và thay đổi quyền.</li>
+</ul>
+<p>Chạy 24/7 không có nghĩa tự chủ tuyệt đối. Một hệ thống tốt biết việc nào tự làm, việc nào chỉ chuẩn bị bản nháp, việc nào phải chờ bạn duyệt và việc nào bị cấm. Đó là Human-in-the-loop của module 1, bây giờ được thi hành bằng quyền hệ thống thay vì lời dặn.</p>`
+      },
+      {
+        title: "9. Hướng dẫn thực hành: Mobile Agent Decision Map + mobile pilot",
+        body: `
+<p><strong>Bước 1 — chọn một việc.</strong> Việc đầu tiên phải vô hại, có đầu ra nhìn thấy và dừng được: tổng hợp một bộ tài liệu test, phân tích repo demo, hoặc sinh bản nháp báo cáo từ dữ liệu giả. Không dùng email khách, dữ liệu thật, thanh toán hay deploy production.</p>
+<p><strong>Bước 2 — lập Decision Map.</strong> Đặt cùng việc đó vào ba phương án: Telegram tự dựng, một Remote/Dispatch chính thức, một cloud agent. So sánh setup, execution host, local files, khả năng chạy khi ngắt kết nối, tùy biến và trách nhiệm bảo mật. Chọn một phương án cho pilot và nêu lý do.</p>
+<p><strong>Bước 3 — vẽ kiến trúc và viết runbook.</strong> Ghi phone/control plane, relay/channel, execution host, runtime, workspace, approval và kênh báo cáo. Runbook phải có Start/Dispatch, Monitor/Status, Clarify/Approve, Logs/Evidence, Restart, Stop, Rollback. Thêm ma trận ai được nhắn, agent được đọc/ghi/gửi/xóa gì.</p>
+<p><strong>Bước 4 — mobile pilot.</strong> Từ điện thoại, start hoặc dispatch việc; rời app; quay lại xem progress; tạo một điểm agent phải hỏi lại hoặc xin approval; đổi hướng một lần; xem evidence; sau đó stop. Ghi rõ trong lúc này việc chạy ở đâu và host nào phải còn bật.</p>
+<p><strong>Bước 5 — test điều kiện mất kết nối.</strong> Trong lab an toàn, đóng app hoặc ngắt client, rồi kiểm tra agent còn chạy không. Nếu đang dùng Remote Control, không tắt host khi chưa lưu việc; thay vào đó hãy dùng status/log để chứng minh phụ thuộc. Nếu dùng cloud, xác nhận việc tiếp tục sau khi app đóng. Lưu bằng chứng đã che hostname, IP, username và token.</p>
+<div class="callout"><strong>Tiêu chuẩn đạt:</strong> bạn có thể nhìn một màn hình mobile agent và giải thích được việc đang chạy ở đâu, máy nào phải còn bật, dữ liệu/quyền ở đâu, bằng chứng ở đâu và dừng bằng cách nào. Đó là năng lực vận hành, không phải thuộc lòng tên sản phẩm.</div>`
       }
     ]
   },
@@ -1367,7 +1484,7 @@ OpenClaw           Trợ lý thường trực 24/7    Việc lặt vặt mọi l
         title: "2. Chuẩn bị đúng: 3 thứ cần có và một sự thật về chi phí",
         body: `
 <p><strong>Thứ nhất — Node.js 18+.</strong> Mở Terminal, gõ <code>node --version</code>. Ra <code>v22.x.x</code> hay tương tự là ổn; báo "command not found" thì tải bản LTS ở nodejs.org, cài như app thường.</p>
-<p><strong>Thứ hai — API key cho bộ não.</strong> Chìa khóa để dùng model (VD key Anthropic/OpenAI, dạng <code>sk-...</code>). Điểm nhiều người bỏ qua: <strong>trợ lý chạy 24/7 qua API là chi phí thật chạy 24/7</strong>. Hai việc bắt buộc ngay từ ngày đầu: đặt <strong>spending limit</strong> trong tài khoản nhà cung cấp (số tiền tối đa/tháng — vượt là dừng, không cháy ví), và hình thành thói quen <em>đo trước khi bật thêm tính năng</em> — kỷ luật này sẽ theo bạn suốt m17-m19, vì mỗi tầng memory, mỗi automation đều cộng vào hóa đơn.</p>
+<p><strong>Thứ hai — API key cho bộ não.</strong> Chìa khóa để dùng model (VD key Anthropic/OpenAI, dạng <code>sk-...</code>). Điểm nhiều người bỏ qua: <strong>trợ lý chạy 24/7 qua API là chi phí thật chạy 24/7</strong>. Hai việc bắt buộc ngay từ ngày đầu: đặt <strong>spending limit</strong> trong tài khoản nhà cung cấp (số tiền tối đa/tháng — vượt là dừng, không cháy ví), và hình thành thói quen <em>đo trước khi bật thêm tính năng</em> — kỷ luật này sẽ theo bạn suốt ba module OpenClaw sau, vì mỗi tầng memory, mỗi automation đều cộng vào hóa đơn.</p>
 <p><strong>Thứ ba — một app chat làm kênh.</strong> Dễ nhất cho người mới là Telegram: tạo bot miễn phí trong 2 phút, không cần duyệt. Slack/Discord/WhatsApp/iMessage đều nối được sau.</p>
 <div class="callout callout-warning"><strong>Câu hỏi nên tự trả lời trước khi cài:</strong> "tôi muốn trợ lý này làm gì trong 2 tuần đầu?" Nếu câu trả lời chỉ là "hỏi đáp cho vui" — chưa đáng chi phí vận hành. Câu trả lời tốt trông như: "sáng tóm tắt email + lịch, trưa hỏi nhanh tài liệu, tối nhắc việc đã hứa" — cụ thể, đo được, đáng tiền. Đây chính là bài phân loại công việc của m1, áp cho trợ lý cá nhân.</div>`
       },
@@ -1407,7 +1524,8 @@ openclaw dashboard            # cửa sổ khác → mở http://127.0.0.1:18789
 <li><strong>Bước 2.</strong> Trong Terminal: <code>openclaw channels add telegram</code> → dán token khi được hỏi.</li>
 <li><strong>Bước 3.</strong> Mở Telegram, nhắn cho bot. Lần đầu sẽ cần <strong>pairing (ghép nối)</strong> — bước xác nhận "người nhắn đúng là chủ" để không phải ai tìm thấy bot cũng sai khiến được nó. Làm theo hướng dẫn trên màn hình.</li>
 </ul>
-<p>Kênh khác cùng công thức: <code>openclaw channels add slack</code> / <code>discord</code> / <code>whatsapp</code> / <code>imessage</code>... Mẹo giai đoạn học: <strong>một kênh trước</strong> — thành thạo rồi mới thêm, mỗi kênh thêm là một bề mặt tấn công thêm (m19 sẽ nói kỹ).</p>
+<p>Kênh khác cùng công thức: <code>openclaw channels add slack</code> / <code>discord</code> / <code>whatsapp</code> / <code>imessage</code>... Mẹo giai đoạn học: <strong>một kênh trước</strong> — thành thạo rồi mới thêm, mỗi kênh thêm là một bề mặt tấn công thêm (module Production sẽ nói kỹ).</p>
+<p>Ngay sau pairing, kiểm tra lại hai điều: chỉ tài khoản của bạn được ghép với bot, và gateway vẫn chỉ nghe ở localhost. Nếu bạn chưa thể giải thích "ai có thể nhắn cho bot" và "ai có thể khiến máy chạy lệnh", bạn chưa xong bước kết nối — mới chỉ làm cho nó trả lời được.</p>
 <p>Nhắn thử vài câu việc thật: "tóm tắt giúp tôi file X trong workspace", "nhắc tôi 15 phút nữa gọi lại khách". Cảm giác "trợ lý trong túi" bắt đầu từ đây.</p>`
       },
       {
@@ -1544,7 +1662,7 @@ openclaw commitments list</code></pre>
     ]
   },
   m18: {
-    readingTime: "12 phút đọc",
+    readingTime: "13 phút đọc",
     sections: [
       {
         title: "1. Automation: làm việc khi bạn không nhìn",
@@ -1565,12 +1683,13 @@ Theo dõi Gmail thời gian thực             → Gmail pub/sub</code></pre>
 <p><strong>Standing orders</strong> đáng dùng sớm nhất: "luôn trả lời ngắn gọn tiếng Việt", "mọi số liệu phải kèm nguồn" — chính là constraints của m2 được áp <em>thường trực</em> thay vì lặp lại mỗi prompt. Còn <strong>hooks</strong> chèn logic vào vòng đời (trước/sau mỗi lượt trả lời) và <strong>webhook</strong> cho hệ thống ngoài kích hoạt trợ lý — hai cơ chế nâng cao, dùng khi có nhu cầu cụ thể.</p>`
       },
       {
-        title: "2. Thiết kế automation không phiền: 3 quy tắc",
+        title: "2. Thiết kế automation không phiền: 4 quy tắc",
         body: `
 <ul>
 <li><strong>Bắt đầu bằng một job, nuôi một tuần.</strong> Đừng dựng 5 cron ngày đầu. Một job "trợ lý sáng" chạy ổn 7 ngày dạy bạn nhiều hơn 5 job chạy loạn — và khi lỗi, bạn biết nhìn đâu (<code>openclaw logs --follow</code> lúc job chạy, <code>openclaw tasks</code> xem việc nền).</li>
 <li><strong>Đầu ra automation phải đến đúng kênh, đúng lúc, đủ ngắn.</strong> Bản tóm tắt sáng 2 màn hình là bản tóm tắt không ai đọc từ ngày thứ ba. Ghi rõ trong prompt của job: độ dài tối đa, gửi kênh nào, khi không có gì đáng nói thì nói "không có gì đáng chú ý" thay vì bịa nội dung.</li>
 <li><strong>Mọi job đều có chi phí nền.</strong> Job chạy mỗi giờ = 24 lần gọi model mỗi ngày, nhân với 30. Quy tắc từ m17 áp lại: thêm job → ghi baseline chi phí → so sau một tuần → không đáng thì tắt. Trợ lý tốt không phải trợ lý làm nhiều nhất, mà là trợ lý mà mọi việc nó làm đều đáng.</li>
+<li><strong>Hành động không đảo ngược cần dry-run hoặc người duyệt.</strong> Automation được gửi tóm tắt thì ổn; automation tự xóa file, gửi email, merge PR, deploy hoặc chuyển tiền thì phải có chế độ thử, log rõ, và điểm duyệt của người. Đây là human review m7, chỉ khác là bây giờ workflow tự chạy khi bạn không nhìn.</li>
 </ul>
 <div class="callout"><strong>Nhận ra mô hình:</strong> đây là workflow m7 tiến hóa hoàn chỉnh — Trigger giờ là cron/sự kiện/webhook thật, Human Review là bạn đọc kết quả trên Telegram, Improvement là chỉnh prompt của job mỗi tuần. Cùng một tư duy, khác mỗi chỗ đứng: trước bạn chạy workflow, giờ workflow tự chạy quanh bạn.</div>`
       },
@@ -1603,9 +1722,10 @@ Theo dõi Gmail thời gian thực             → Gmail pub/sub</code></pre>
 <ul>
 <li><strong>Bước 1 — Trợ lý sáng:</strong> cron 7h tóm tắt email/lịch (hoặc nguồn bạn có) gửi Telegram, prompt job ghi rõ độ dài tối đa + quy tắc "không có gì thì nói không có gì". Nuôi đủ 2 ngày liên tiếp không đụng máy.</li>
 <li><strong>Bước 2 — Standing order:</strong> đặt 1 nội quy thường trực có ích thật (VD: "mọi con số phải kèm nguồn"), kiểm chứng nó tác động mọi câu trả lời.</li>
-<li><strong>Bước 3 — Worker coding nền:</strong> bind hội thoại ↔ session ACP Claude Code của một repo thật; giao 1 việc code thật theo mẫu mục 4; theo dõi bằng tasks; duyệt kết quả.</li>
-<li><strong>Bước 4.</strong> Ghi bảng chi phí: baseline trước automation → sau 2-3 ngày. Đánh giá từng job: giữ / chỉnh / tắt.</li>
-<li><strong>Bước 5.</strong> Dán vào ô bài làm: cấu hình 2 workflow + nhật ký tasks + bảng chi phí + một đoạn hội thoại giao việc code thật. Tick checklist, copy prompt phản biện.</li>
+<li><strong>Bước 3 — Safety dry-run:</strong> với mọi job có thể ghi/gửi/sửa/xóa, chạy thử ở chế độ không tác động thật hoặc yêu cầu xác nhận trước hành động. Ghi rõ giới hạn quyền và điều kiện tắt job.</li>
+<li><strong>Bước 4 — Worker coding nền:</strong> bind hội thoại ↔ session ACP Claude Code của một repo thật; giao 1 việc code thật theo mẫu mục 4; theo dõi bằng tasks; duyệt kết quả.</li>
+<li><strong>Bước 5.</strong> Ghi bảng chi phí: baseline trước automation → sau 2-3 ngày. Đánh giá từng job: giữ / chỉnh / tắt.</li>
+<li><strong>Bước 6.</strong> Dán vào ô bài làm: cấu hình 2 workflow + nhật ký tasks + bảng chi phí + safety dry-run + một đoạn hội thoại giao việc code thật. Tick checklist, copy prompt phản biện.</li>
 </ul>
 <div class="callout"><strong>Nhìn về m19:</strong> trợ lý giờ có tính cách, trí nhớ, tay chân và cả xưởng code. Nó cũng vừa trở thành mục tiêu tấn công hấp dẫn. Module cuối: khóa cửa, phân quyền, và vận hành như dân chuyên.</div>`
       }
@@ -1645,7 +1765,7 @@ Theo dõi Gmail thời gian thực             → Gmail pub/sub</code></pre>
 <li><strong>Backup — nguyên tắc trước mọi thử nghiệm lớn:</strong> <code>openclaw backup create</code> sao lưu state (config + auth + sessions). State của trợ lý là <em>tài sản tích lũy</em>: trí nhớ nuôi hàng tháng, persona đã mài, binding đã cấu hình. Và backup chưa thử khôi phục là backup trên niềm tin — thử ít nhất một lần.</li>
 <li><strong>Nodes:</strong> chạy node host trên nhiều thiết bị để dùng camera, mic, canvas, voice wake từ xa qua Gateway (<code>openclaw nodes</code>) — khi trợ lý cần "giác quan" ở nơi khác ngoài máy chính.</li>
 </ul>
-<p><strong>Kinh tế chi phí 24/7 — tổng kết kỷ luật đã học:</strong> mỗi tầng memory, mỗi cron job, mỗi agent thêm đều cộng vào hóa đơn hằng tháng. Bộ ba công cụ quản trị: spending limit ở nhà cung cấp (trần cứng), bảng đo trước-sau mỗi lần bật tính năng (m17-m18), và câu hỏi hàng tháng: "tính năng nào tôi đang trả tiền mà không dùng?" — tắt không thương tiếc, bật lại lúc nào cũng được.</p>`
+<p><strong>Kinh tế chi phí 24/7 — tổng kết kỷ luật đã học:</strong> mỗi tầng memory, mỗi cron job, mỗi agent thêm đều cộng vào hóa đơn hằng tháng. Bộ ba công cụ quản trị: spending limit ở nhà cung cấp (trần cứng), bảng đo trước-sau mỗi lần bật tính năng (hai module Memory và Automation), và câu hỏi hàng tháng: "tính năng nào tôi đang trả tiền mà không dùng?" — tắt không thương tiếc, bật lại lúc nào cũng được.</p>`
       },
       {
         title: "4. Nguyên tắc vàng khi lên cấp — và bản đồ tự học tiếp",
@@ -1673,7 +1793,7 @@ Theo dõi Gmail thời gian thực             → Gmail pub/sub</code></pre>
 </ul>
 <p><strong>Phần B — Bài tốt nghiệp toàn khóa:</strong> hoàn thiện hệ thống 3 workflow chạy đồng thời — trợ lý sáng (m18), worker coding nền (m18), bộ nhớ tự lớn (m17) — chạy ổn định tối thiểu một tuần, kèm: báo cáo security audit, bảng chi phí theo tầng, và một trang "kiến trúc hệ thống của tôi" mô tả toàn bộ (agent nào, kênh nào, automation nào, quyền gì) mà một người ngoài đọc hiểu được.</p>
 <p>Dán tất cả vào ô bài làm, tick checklist, copy prompt phản biện — lần cuối cùng của giáo trình.</p>
-<div class="callout"><strong>Lời kết toàn khóa:</strong> 19 module trước, bạn hỏi AI từng câu một. Giờ bạn có: quy trình 4 bước đã nội hóa, thư viện skill mang chuyên môn của bạn, second brain + knowledge graph bạn sở hữu, một xưởng engineering kit chạy song song, và một trợ lý cá nhân trực 24/7 — có tính cách bạn thiết kế, trí nhớ bạn biên tập, quyền hạn bạn phân, và chi phí bạn kiểm soát. Câu của guide nâng cao xứng đáng khép lại giáo trình: <em>"Giới hạn không còn là công cụ làm được gì — mà là bạn thiết kế hệ thống của mình khéo tới đâu."</em></div>`
+<div class="callout"><strong>Lời kết toàn khóa:</strong> sau 20 module, bạn không còn hỏi AI từng câu một. Giờ bạn có: quy trình 4 bước đã nội hóa, thư viện skill mang chuyên môn của bạn, second brain + knowledge graph bạn sở hữu, một xưởng engineering kit chạy song song, và một trợ lý cá nhân trực 24/7 — có tính cách bạn thiết kế, trí nhớ bạn biên tập, quyền hạn bạn phân, và chi phí bạn kiểm soát. Câu của guide nâng cao xứng đáng khép lại giáo trình: <em>"Giới hạn không còn là công cụ làm được gì — mà là bạn thiết kế hệ thống của mình khéo tới đâu."</em></div>`
       }
     ]
   }

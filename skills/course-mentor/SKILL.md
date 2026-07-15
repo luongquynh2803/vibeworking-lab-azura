@@ -43,7 +43,7 @@ Xếp dự án vào một trong các giai đoạn (chọn gần đúng nhất, g
 
 ### Bước 3 — Mapping giai đoạn → module
 
-Bảng tham chiếu 19 module (tóm tắt để mapping, nội dung đầy đủ trong `data.js` của khóa học):
+Bảng tham chiếu 20 module (tóm tắt để mapping, nội dung đầy đủ trong `data.js` của khóa học):
 
 | Module | Chủ đề | Thường "now" ở giai đoạn |
 |---|---|---|
@@ -62,12 +62,13 @@ Bảng tham chiếu 19 module (tóm tắt để mapping, nội dung đầy đủ
 | m13 Engineering Kit cơ bản | Kit skill/agent/hook, vòng Ask→Plan→Cook, an toàn | S2-S3 khi dự án là code + người dùng đã xong m1-m12 |
 | m14 Pipeline chất lượng | Plan --two/red-team, cook TDD, fix phân cấp, ship | S4-S5 với codebase có người dùng thật |
 | m15 Orchestration & mở rộng | Agent teams, worktree song song, loop, skill/hook riêng, kinh tế context | S5-S6 hoặc khi cần tăng throughput |
-| m16 OpenClaw cơ bản | Trợ lý cá nhân local: gateway/channel/model, trí nhớ file, an toàn | Mọi giai đoạn, khi người học muốn trợ lý thường trực |
-| m17 OpenClaw trí nhớ & persona | SOUL.md, multi-agent, memory 4 tầng | Khi đã dùng OpenClaw hằng ngày |
-| m18 OpenClaw automation & harness | Cron, standing orders, ACP worker coding nền | S5-S6 hoặc khi vận hành nhiều luồng việc nền |
-| m19 OpenClaw production | Threat model, 5 lớp phòng thủ, failover, backup, chi phí | Trước khi vận hành lâu dài/phơi ra mạng |
+| m20 Mobile Agent (hiển thị M16) | Dispatch, Remote Control, cloud agent, Telegram tự dựng, VPS/process/log/credential | Trước khi dựng trợ lý thường trực hoặc khi cần điều khiển việc từ điện thoại |
+| m16 OpenClaw cơ bản (hiển thị M17) | Trợ lý cá nhân local: gateway/channel/model, trí nhớ file, an toàn | Mọi giai đoạn, khi người học muốn trợ lý thường trực |
+| m17 OpenClaw trí nhớ & persona (hiển thị M18) | SOUL.md, multi-agent, memory 4 tầng | Khi đã dùng OpenClaw hằng ngày |
+| m18 OpenClaw automation & harness (hiển thị M19) | Cron, standing orders, ACP worker coding nền | S5-S6 hoặc khi vận hành nhiều luồng việc nền |
+| m19 OpenClaw production (hiển thị M20) | Threat model, 5 lớp phòng thủ, failover, backup, chi phí | Trước khi vận hành lâu dài/phơi ra mạng |
 
-Lưu ý track Master (m13-m19): chỉ gán "now"/"next" khi (a) người học đã hoàn thành phần lớn m1-m12 VÀ (b) với m13-m15 dự án có thành phần code đáng kể. Ngược lại để "later" với note giải thích.
+Lưu ý track Master (m13-m20): chỉ gán "now"/"next" khi (a) người học đã hoàn thành phần lớn m1-m12 VÀ (b) với m13-m15 dự án có thành phần code đáng kể. Ngược lại để "later" với note giải thích. Riêng m20 (Mobile Agent) có thể thành "now" khi người học cần giao/duyệt việc từ điện thoại và đã có workflow đủ rõ, không bắt buộc dự án phải là code.
 
 Quy tắc gán roadmap status cho từng module:
 - `done`: người dùng đã hoàn thành module VÀ dự án đã có bằng chứng áp dụng.
@@ -106,7 +107,7 @@ const myProject = {
   roadmap: [
     { moduleId: "m1", status: "done", note: "..." },
     { moduleId: "m8", status: "now", note: "..." }
-    // đủ 19 module (m1-m19), status: done | now | next | later
+    // đủ 20 module (m1-m20), status: done | now | next | later
   ],
   modules: {
     m8: {
@@ -123,7 +124,7 @@ const myProject = {
 
 **Kiểm tra trước khi ghi (bắt buộc, tự rà từng mục):**
 1. File là JavaScript hợp lệ (chạy thử parse).
-2. Mọi `moduleId` thuộc m1-m19; roadmap đủ 19 module, có đúng 1-2 "now".
+2. Mọi `moduleId` thuộc m1-m20; roadmap đủ 20 module, có đúng 1-2 "now".
 3. `focus.moduleId` có mặt trong `modules` với relevance high.
 4. Không có chuỗi nào chứa placeholder chưa điền ("...", "TODO", "[tên dự án]").
 5. customPractice không trùng nguyên văn bài thực hành gốc trong `data.js`.

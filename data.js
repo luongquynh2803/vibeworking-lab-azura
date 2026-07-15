@@ -288,13 +288,15 @@ const curriculum = [
     objectives: [
       "Biết mô tả sản phẩm, yêu cầu đầu ra và tiêu chí kiểm thử cho AI.",
       "Hiểu khi nào nên dùng AI coding, no-code hoặc chuyển cho developer.",
-      "Biết tối ưu token, tránh lặp context và chia nhỏ nhiệm vụ."
+      "Biết tối ưu token, tránh lặp context và chia nhỏ nhiệm vụ.",
+      "Nhận diện sớm dữ liệu nhạy cảm, secret và ranh giới prototype trước khi đưa sản phẩm cho người khác dùng."
     ],
     topics: [
       "AI Coding Assistant và AI Assistant tổng quát.",
       "Cách giao việc bằng mô tả sản phẩm, dữ liệu, constraint và test.",
       "Tối ưu token khi làm việc trong dự án dài.",
-      "Ranh giới giữa prototype, automation và sản phẩm thật."
+      "Ranh giới giữa prototype, automation và sản phẩm thật.",
+      "Checkpoint bảo mật tối thiểu: dữ liệu nhạy cảm, API key, quyền truy cập và deploy công khai."
     ],
     practice:
       "Yêu cầu AI tạo một prototype đơn giản như landing page, form khảo sát, dashboard mini hoặc automation logic.",
@@ -302,7 +304,8 @@ const curriculum = [
     checklist: [
       "Bản mô tả sản phẩm có: mục tiêu, người dùng, tính năng chính, constraint và tiêu chí kiểm thử.",
       "Prototype chạy được hoặc mô tả đủ chi tiết để người khác thực hiện không cần hỏi lại.",
-      "Đã tự kiểm thử prototype với ít nhất 2 tình huống sử dụng."
+      "Đã tự kiểm thử prototype với ít nhất 2 tình huống sử dụng.",
+      "Đã rà dữ liệu nhạy cảm/secret/quyền truy cập và ghi rõ prototype chưa được xem là sản phẩm production nếu chưa qua kiểm tra bảo mật."
     ],
     quiz: [
       {
@@ -714,13 +717,15 @@ const curriculum = [
     objectives: [
       "Hiểu bậc thang lưu trữ: file → bảng tính → database → database có API/MCP → semantic search.",
       "Thiết kế được schema đơn giản, đúng nhu cầu cho dữ liệu công việc.",
-      "Nắm tầm nhìn second brain: capture, organize, distill, express — và vai trò của AI ở từng bước."
+      "Nắm tầm nhìn second brain: capture, organize, distill, express — và vai trò của AI ở từng bước.",
+      "Biết phân loại dữ liệu theo mức nhạy cảm và thiết kế quyền truy cập tối thiểu cho data layer."
     ],
     topics: [
       "Vì sao dữ liệu vụn là nút thắt của mọi workflow trưởng thành.",
       "Bậc thang 5 cấp lưu trữ và tiêu chí khi nào nâng cấp.",
       "Thiết kế schema: thực thể, thuộc tính, ID, quan hệ cơ bản.",
-      "Second brain vận hành cùng AI: từ ghi chú đến hệ thống trả lời được câu hỏi."
+      "Second brain vận hành cùng AI: từ ghi chú đến hệ thống trả lời được câu hỏi.",
+      "Privacy-by-design: ẩn danh hóa, quyền đọc/ghi, backup và quy tắc không đưa dữ liệu nhạy cảm vào AI khi chưa được phép."
     ],
     practice:
       "Thiết kế và dựng tầng dữ liệu cho workflow/skill của bạn: chọn đúng bậc, định nghĩa schema, nạp dữ liệu thật và chạy 3 truy vấn có ý nghĩa.",
@@ -729,7 +734,8 @@ const curriculum = [
       "Đã chọn bậc lưu trữ có lý do rõ (vì sao không thấp hơn, không cao hơn).",
       "Schema định nghĩa được: các thực thể chính, thuộc tính bắt buộc, ID và quy ước đặt tên.",
       "Đã nạp dữ liệu thật và chạy ít nhất 3 truy vấn trả lời câu hỏi công việc thực tế.",
-      "AI truy cập được data layer này (đọc file/thư mục, chạy query, hoặc qua connector MCP)."
+      "AI truy cập được data layer này (đọc file/thư mục, chạy query, hoặc qua connector MCP).",
+      "Đã phân loại dữ liệu nhạy cảm, ẩn danh hóa nơi cần thiết, và xác định quyền truy cập tối thiểu cho AI/người dùng."
     ],
     quiz: [
       {
@@ -1061,11 +1067,94 @@ const curriculum = [
     ]
   },
   {
-    id: "m16",
+    id: "m20",
     level: "master",
     number: 16,
-    title: "OpenClaw Foundation: Cài Đặt & Vận Hành",
+    title: "Nontech → Mobile Agent: Điều Khiển AI Từ Điện Thoại",
     duration: "Tuần 13",
+    focus: "Phân biệt và thực hành 4 cách điều khiển agent từ điện thoại",
+    description:
+      "Học viên non-tech hiểu Mobile Agent không chỉ là chat trên điện thoại: điện thoại là bảng điều khiển để dispatch, theo dõi, đổi hướng, phê duyệt và dừng công việc đang chạy trên máy của mình hoặc trên cloud. Module so sánh Telegram bot tự dựng với các luồng mobile chính thức của Anthropic và OpenAI, rồi mới đi vào VPS, process nền, credential và log.",
+    objectives: [
+      "Giải thích Mobile Agent bằng ba lớp: điện thoại là control plane, nơi agent chạy là execution host, file/công cụ/quyền là work environment.",
+      "Phân biệt 4 mô hình: Dispatch, Remote Control, Cloud Delegation và Channel/Event-driven; biết mô hình nào cần máy của bạn tiếp tục bật.",
+      "So sánh Telegram bot tự dựng, Claude mobile/Cowork/Claude Code và ChatGPT mobile/Work/Codex theo nơi thực thi, dữ liệu, quyền, độ tùy biến và gánh nặng vận hành.",
+      "Giải thích được VPS, SSH, process chạy nền, credential và log bằng ngôn ngữ đời thường.",
+      "Tạo Mobile Agent runbook để giao việc, theo dõi, phê duyệt, kiểm tra log, khởi động lại và dừng hệ thống an toàn."
+    ],
+    topics: [
+      "Từ AI như dịch vụ sang AI như một hệ thống do bạn vận hành.",
+      "Mobile Agent = control plane trong túi; vòng đời Start → Monitor → Clarify → Approve → Review → Stop.",
+      "4 mô hình: Dispatch, Remote Control, Cloud Delegation, Channel/Event-driven.",
+      "Kênh chính thức: Claude mobile (Cowork Dispatch, Claude Code Remote Control, Claude Code cloud) và ChatGPT mobile (Work cloud, Codex Remote).",
+      "Kênh tự dựng: Telegram/Discord/iMessage bot hoặc plugin nối vào agent runtime của bạn.",
+      "VPS và các lựa chọn máy luôn bật: cloud, máy mini tại nhà, laptop.",
+      "SSH/terminal, agent runtime, tmux/service, cron, Git sync và kênh chat từ điện thoại.",
+      "Credential, quyền tối thiểu, firewall, backup, spending limit và human approval.",
+      "Runbook chẩn đoán theo 5 câu hỏi: máy còn sống, mạng còn thông, process còn chạy, log nói gì, thay đổi gần nhất là gì."
+    ],
+    practice:
+      "Lập Mobile Agent Decision Map cho một việc thật, so sánh ít nhất 3 phương án (một bot tự dựng, một remote session chính thức, một cloud agent), rồi chạy một mobile pilot vô hại. Từ điện thoại, hãy start/dispatch việc, xem tiến độ, trả lời một câu hỏi hoặc approval, review kết quả và stop; ghi rõ agent chạy ở đâu và điều gì xảy ra nếu máy của bạn ngủ.",
+    output:
+      "Mobile Agent Starter Pack gồm bản đồ 4 mô hình, bảng so sánh tự dựng/chính thức, sơ đồ execution host và luồng dữ liệu, ma trận quyền/secret, runbook một trang và bằng chứng mobile pilot.",
+    checklist: [
+      "Bản đồ phân biệt đúng Dispatch, Remote Control, Cloud Delegation và Channel/Event-driven; mỗi mô hình ghi rõ ai khởi chạy, agent chạy ở đâu và máy nào phải còn bật.",
+      "Bảng so sánh có Telegram tự dựng, ít nhất 1 luồng Anthropic và 1 luồng OpenAI theo 6 tiêu chí: setup, execution host, local files, chạy khi ngắt kết nối, tùy biến, trách nhiệm bảo mật.",
+      "Sơ đồ pilot có đủ phone/control plane, relay/channel, execution host, agent runtime, workspace và đường báo cáo/approval ngược về.",
+      "Runbook có thao tác cụ thể cho start/dispatch, monitor/status, clarify/approve, logs/evidence, restart, stop và rollback.",
+      "Credential không nằm trong Git/bài nộp; có quyền tối thiểu, spending limit, backup và ít nhất 2 hành động bắt buộc con người duyệt.",
+      "Mobile pilot chứng minh được vòng Start → Monitor → Clarify/Approve → Review → Stop; bằng chứng đã che hostname, IP, username và token."
+    ],
+    quiz: [
+      {
+        q: "Phát biểu nào mô tả đúng nhất khái niệm Mobile Agent?",
+        options: [
+          "Model AI phải chạy hoàn toàn bên trong điện thoại.",
+          "Điện thoại là control plane để giao việc, theo dõi, đổi hướng và phê duyệt; việc có thể chạy trên máy của bạn, VPS hoặc cloud nhà cung cấp.",
+          "Bất kỳ chatbot nào có app iOS đều là Mobile Agent.",
+          "Mobile Agent bắt buộc phải dùng Telegram."
+        ],
+        answer: 1,
+        explain:
+          "Mobile nói về bề mặt điều khiển, không khẳng định nơi thực thi. Câu hỏi đầu tiên luôn là: agent thật sự đang chạy ở đâu?"
+      },
+      {
+        q: "Khác biệt cốt lõi giữa Remote Control và Cloud Delegation là gì?",
+        options: [
+          "Remote Control chạy việc trên host đã kết nối của bạn; Cloud Delegation chạy trong môi trường do nhà cung cấp quản lý.",
+          "Remote Control chỉ dùng Android, Cloud Delegation chỉ dùng iOS.",
+          "Remote Control miễn phí, Cloud Delegation luôn trả phí.",
+          "Không có khác biệt."
+        ],
+        answer: 0,
+        explain:
+          "Remote Control cho bạn giữ local config, tool, file và credential trên host của mình, nhưng host phải còn online. Cloud Delegation dễ rời máy hơn, nhưng chỉ thấy dữ liệu/công cụ đã cấp cho môi trường cloud."
+      },
+      {
+        q: "Khi agent đang chạy bỗng không trả lời, phản xạ vận hành tốt nhất là gì?",
+        options: [
+          "Xóa server và cài lại ngay.",
+          "Gửi thêm nhiều tin nhắn cho đến khi nó trả lời.",
+          "Kiểm tra theo tầng: host/mạng → process/status → log → credential/quota → thay đổi gần nhất, rồi mới restart có chủ đích.",
+          "Công khai API key để nhờ người khác xem hộ."
+        ],
+        answer: 2,
+        explain:
+          "Chẩn đoán theo tầng giúp khoanh vùng nguyên nhân và giữ bằng chứng. Restart/cài lại quá sớm có thể xóa dấu vết cần để hiểu lỗi."
+      }
+    ],
+    flashcards: [
+      { front: "Mobile Agent", back: "Điện thoại là control plane trong túi để Start → Monitor → Clarify → Approve → Review → Stop; execution có thể ở máy của bạn, VPS hoặc cloud." },
+      { front: "4 mô hình Mobile Agent", back: "Dispatch: giao việc cho host · Remote Control: lái phiên đang chạy · Cloud Delegation: giao cho cloud độc lập · Channel/Event-driven: tin nhắn/sự kiện kích hoạt agent." },
+      { front: "Câu hỏi execution host", back: "Agent thật sự đang chạy ở đâu? Máy nào phải còn bật? File, credential, log và approval nằm ở đâu? Trả lời được bốn câu này mới biết hệ thống có thật sự 24/7 hay không." }
+    ]
+  },
+  {
+    id: "m16",
+    level: "master",
+    number: 17,
+    title: "OpenClaw Foundation: Cài Đặt & Vận Hành",
+    duration: "Tuần 14",
     focus: "Dựng trợ lý AI cá nhân chạy trên máy bạn, trả lời qua app chat",
     description:
       "Học viên hiểu kiến trúc Gateway–Channel–Model, cài đặt OpenClaw từ số 0, kết nối kênh chat đầu tiên, thành thạo bộ lệnh chẩn đoán và bật đủ các lá chắn an toàn cơ bản.",
@@ -1078,7 +1167,8 @@ const curriculum = [
       "Kiến trúc: Gateway (control plane) – Channel (app chat) – Model (bộ não cắm-rút được).",
       "Chuẩn bị: Node 18+, API key + spending limit, chọn kênh; hiểu chi phí trợ lý 24/7.",
       "Cài đặt: npm install -g openclaw, onboard, 3 cách chạy, kết nối kênh + pairing.",
-      "Chẩn đoán: doctor/--fix, status, logs --follow; 5 sự cố thường gặp và cách thoát."
+      "Chẩn đoán: doctor/--fix, status, logs --follow; 5 sự cố thường gặp và cách thoát.",
+      "An toàn ngày đầu: localhost, gateway token, command owner, bot token/API key và nguyên tắc không phơi gateway khi chưa đọc threat model."
     ],
     practice:
       "Cài OpenClaw từ đầu, onboard, chạy đủ 3 cách (terminal chat, gateway + dashboard, kênh Telegram thật), cố tình gây 2 sự cố và tự chẩn đoán bằng doctor/logs, bật đủ 5 lá chắn an toàn.",
@@ -1087,7 +1177,8 @@ const curriculum = [
       "Gateway chạy nền, nhắn qua kênh chat thật (đã pairing) và nhận trả lời — không chỉ chat trong terminal.",
       "Mở được dashboard, đọc hiểu openclaw.json và biết thư mục agent nằm đâu.",
       "Đã tự gây và tự sửa 2 sự cố bằng doctor/status/logs (ghi lại hiện tượng → chẩn đoán → lệnh sửa).",
-      "5 lá chắn an toàn bật đủ: localhost, token gateway, API key bí mật + spending limit, command owner là bạn, thói quen --help trước lệnh lạ."
+      "5 lá chắn an toàn bật đủ: localhost, token gateway, API key bí mật + spending limit, command owner là bạn, thói quen --help trước lệnh lạ.",
+      "Đã xác nhận gateway chưa phơi ra Internet và bot/channel đã pairing đúng chủ sở hữu."
     ],
     quiz: [
       {
@@ -1134,9 +1225,9 @@ const curriculum = [
   {
     id: "m17",
     level: "master",
-    number: 17,
+    number: 18,
     title: "OpenClaw: Trí Nhớ & Persona",
-    duration: "Tuần 14",
+    duration: "Tuần 15",
     focus: "Thiết kế bộ não: file trí nhớ, tính cách, nhiều persona, bộ nhớ tự lớn",
     description:
       "Học viên làm chủ hệ trí nhớ minh bạch của OpenClaw: thiết kế SOUL.md có chủ đích, dựng nhiều agent cô lập theo ngữ cảnh, và bật dần 4 tầng bộ nhớ (compaction, active, dreaming, commitments) có đo chi phí.",
@@ -1205,9 +1296,9 @@ const curriculum = [
   {
     id: "m18",
     level: "master",
-    number: 18,
+    number: 19,
     title: "OpenClaw: Automation & Điều Phối Coding Harness",
-    duration: "Tuần 15",
+    duration: "Tuần 16",
     focus: "Trợ lý tự làm việc khi bạn vắng — và điều khiển cả xưởng code",
     description:
       "Học viên dựng automation (cron, standing orders, hooks, webhook), phân biệt heartbeat vs cron, nối coding harness qua CLI backend/ACP để giao việc code từ app chat, và mở rộng năng lực bằng skill/plugin.",
@@ -1220,7 +1311,8 @@ const curriculum = [
       "Cron, cron on-exit, standing orders, hooks, webhook/tasks — và bảng quyết định khi nào dùng gì.",
       "Heartbeat vs cron: nhịp nền linh hoạt vs lịch xác định.",
       "CLI backend (fallback text-only) vs ACP (session bền, task nền, bind hội thoại ↔ session).",
-      "Skill vs plugin; ClawHub và kỷ luật cài code bên thứ ba."
+      "Skill vs plugin; ClawHub và kỷ luật cài code bên thứ ba.",
+      "Dry-run, quyền tối thiểu và điểm duyệt bắt buộc cho automation có thể ghi file, gửi tin, merge, deploy hoặc xóa dữ liệu."
     ],
     practice:
       "Dựng 'trợ lý sáng' (cron 7h tóm tắt email/lịch gửi Telegram) + 1 standing order + worker coding nền: bind một hội thoại với session ACP Claude Code, giao một việc code thật và theo dõi bằng openclaw tasks.",
@@ -1229,7 +1321,8 @@ const curriculum = [
       "Cron job chạy đúng lịch ít nhất 2 ngày liên tiếp mà bạn không đụng máy.",
       "Có 1 standing order áp thường trực và kiểm chứng nó tác động mọi câu trả lời.",
       "Worker coding nền hoàn thành 1 việc thật (đọc repo/sửa file/chạy test) giao từ app chat, theo dõi qua openclaw tasks.",
-      "Mọi skill/plugin cài thêm đều đã đọc permission requests và ghi lý do tin nguồn."
+      "Mọi skill/plugin cài thêm đều đã đọc permission requests và ghi lý do tin nguồn.",
+      "Mỗi automation có kênh nhận kết quả, điều kiện tắt, giới hạn quyền, và các hành động không đảo ngược vẫn cần con người duyệt."
     ],
     quiz: [
       {
@@ -1275,9 +1368,9 @@ const curriculum = [
   {
     id: "m19",
     level: "master",
-    number: 19,
+    number: 20,
     title: "OpenClaw Production: Security & Vận Hành",
-    duration: "Tuần 16",
+    duration: "Tuần 17",
     focus: "Trợ lý có quyền thật cần kỷ luật thật — và bài tốt nghiệp toàn khóa",
     description:
       "Học viên hiểu threat model (prompt injection, exfiltration), dựng 5 lớp phòng thủ, vận hành như dân chuyên (failover, backup, quan sát, chi phí) và hoàn thành bài tốt nghiệp: hệ thống trợ lý cá nhân hoàn chỉnh.",
@@ -1342,6 +1435,274 @@ const curriculum = [
       { front: "Vận hành production", back: "status --deep + logs quan sát · model failover khi provider lỗi · openclaw backup create trước thử nghiệm (và thử khôi phục!) · nodes cho thiết bị từ xa." },
       { front: "Nguyên tắc vàng khi lên cấp", back: "Bật từng tầng + đo chi phí · doctor --fix sau config lớn · backup trước thử nghiệm · quyền tối thiểu · đọc threat model trước khi phơi ra mạng · version-control persona." }
     ]
+  }
+];
+
+// ===== Điều kiện đầu vào theo chặng =====
+const levelGuides = {
+  foundation: {
+    title: "Foundation · M1-M5",
+    promise: "Dành cho người muốn dùng AI chắc tay trong công việc hằng ngày, chưa cần biết code.",
+    prerequisites: [
+      "Có ít nhất 5 công việc thật để đem vào bài tập.",
+      "Biết dùng một AI assistant phổ biến như Claude, ChatGPT hoặc Gemini.",
+      "Sẵn sàng kiểm chứng đầu ra thay vì lấy bản nháp đầu tiên làm kết quả cuối."
+    ],
+    exitCriteria: [
+      "Có bản đồ công việc cá nhân dùng AI.",
+      "Có context, prompt và mini-project chạy qua Research → Plan → Execute → Verify.",
+      "Có product brief/prototype nhỏ kèm checklist kiểm thử và checkpoint bảo mật cơ bản."
+    ]
+  },
+  advanced: {
+    title: "Advanced · M6-M12",
+    promise: "Dành cho người đã có một dự án xương sống và muốn biến cách làm tốt thành workflow/skill dùng lại được.",
+    prerequisites: [
+      "Đã hoàn thành Foundation hoặc chứng minh được bạn có context/prompt/workflow cơ bản.",
+      "Có một dự án thật hoặc một quy trình công việc lặp lại đủ giá trị để đóng gói.",
+      "Biết lưu tài liệu thành file, dùng cấu trúc thư mục dự án và xuất/nhập dữ liệu tối thiểu bằng CSV/Markdown.",
+      "Hiểu ranh giới dữ liệu nhạy cảm trong công việc của mình."
+    ],
+    exitCriteria: [
+      "Có workflow vận hành được và một Agent Skill bản đầu.",
+      "Có bộ test case, feedback người ngoài và gói chia sẻ/bán được.",
+      "Có data layer hoặc mini knowledge graph nuôi lại workflow/skill."
+    ]
+  },
+  master: {
+    title: "Master · M13-M20",
+    promise: "Dành cho builder đã ship ít nhất một sản phẩm nhỏ và muốn vận hành agent/team/automation có kỷ luật.",
+    prerequisites: [
+      "Đã đi hết 12 module core hoặc có năng lực tương đương: plan, làm, kiểm chứng, đóng gói.",
+      "Biết dùng terminal, Git, đọc log và chạy test cơ bản.",
+      "Có project tập luyện riêng, không dùng sản phẩm thật làm sân thử ngày đầu.",
+      "Có API key với spending limit và hiểu rủi ro khi cho trợ lý quyền đọc/ghi/chạy lệnh."
+    ],
+    exitCriteria: [
+      "Vận hành được engineering kit qua plan → cook → test → review → ship.",
+      "Điều phối được nhiều agent/worktree khi task thật sự chia được.",
+      "Có trợ lý OpenClaw chạy thật với memory, automation, coding harness, backup/failover và security audit."
+    ]
+  }
+};
+
+// ===== Rubric chấm đầu ra từng module =====
+const moduleRubrics = {
+  m1: [
+    { criterion: "Công việc thật", pass: "Liệt kê đủ 5 việc cụ thể trong tuần.", excellent: "Mỗi việc có trigger, người nhận kết quả và hậu quả nếu sai." },
+    { criterion: "Phân loại đúng", pass: "Gán rõ AI / human-in-the-loop / không tự động hóa.", excellent: "Lý do phân loại dựa trên rủi ro, khả năng sửa sai và giá trị con người." },
+    { criterion: "Kế hoạch kiểm chứng", pass: "Nêu ít nhất 2 rủi ro và cách kiểm tra.", excellent: "Có checklist kiểm chứng riêng cho từng việc nhóm 1 và 2." }
+  ],
+  m2: [
+    { criterion: "Đủ 8 thành phần", pass: "Context có Role, Goal, Context, Input, Process, Output, Constraints, Verification.", excellent: "Các phần liên kết chặt: goal dẫn đến process, process dẫn đến output, verification đo đúng goal." },
+    { criterion: "Dữ liệu và ràng buộc", pass: "Input, constraints đủ để giảm suy đoán.", excellent: "Ghi rõ dữ liệu được dùng, dữ liệu cấm dùng, và cách xử lý khi thiếu dữ liệu." },
+    { criterion: "Verification-first", pass: "Tiêu chí kiểm tra viết trước khi chạy.", excellent: "Tiêu chí đo được, có ngưỡng đạt/rớt và phát hiện được lỗi ảo giác." }
+  ],
+  m3: [
+    { criterion: "So sánh 3 mức", pass: "Có cùng một nhiệm vụ ở 3 prompt và nhận xét khác biệt.", excellent: "Chỉ ra được prompt nào tạo khác biệt ở output nào, không nhận xét chung chung." },
+    { criterion: "Bộ 5 prompt", pass: "Phủ giao nhiệm vụ, nghiên cứu, lập kế hoạch, phản biện, kiểm chứng.", excellent: "Mỗi prompt có input, output, constraint và tiêu chí nghiệm thu riêng." },
+    { criterion: "Clarify-first", pass: "Ít nhất 1 prompt yêu cầu AI hỏi lại.", excellent: "Câu hỏi làm rõ được giới hạn số lượng và điều kiện bắt đầu thực hiện." }
+  ],
+  m4: [
+    { criterion: "Đủ 4 bước", pass: "Mini-project có Research, Plan, Execute, Verify.", excellent: "Mỗi bước có input/output riêng và quyết định chuyển bước rõ ràng." },
+    { criterion: "Verify thật", pass: "Có ít nhất 1 vòng phản biện AI và 1 lần người kiểm tra.", excellent: "Verify đối chiếu với tiêu chí ban đầu, có ghi lỗi, sửa lỗi và lý do giữ/bỏ đề xuất." },
+    { criterion: "Delta chất lượng", pass: "So sánh bản nháp đầu và bản sau Verify.", excellent: "Chỉ ra thay đổi cụ thể làm kết quả tốt hơn về độ đúng, độ dùng được hoặc rủi ro giảm." }
+  ],
+  m5: [
+    { criterion: "Product brief", pass: "Có mục tiêu, người dùng, tính năng, constraint, tiêu chí kiểm thử.", excellent: "Brief đủ để AI/developer làm không cần hỏi lại và có mục 'không cần' để chống phình scope." },
+    { criterion: "Prototype/test", pass: "Prototype chạy được hoặc mô tả đủ chi tiết, đã test 2 tình huống.", excellent: "Có nhật ký lỗi, bước tái hiện và kết quả sửa/không sửa." },
+    { criterion: "Security checkpoint", pass: "Rà dữ liệu nhạy cảm, secret, quyền truy cập.", excellent: "Ghi rõ ranh giới prototype/production và việc cần chuyên gia kiểm tra trước khi dùng thật." }
+  ],
+  m6: [
+    { criterion: "Nguồn tri thức", pass: "Workflow chắt lọc từ ít nhất 2 nguồn.", excellent: "Nguồn được ghi lại, đánh giá độ tin cậy và nối rõ vào từng bước workflow." },
+    { criterion: "Workflow 5 phần", pass: "Có input, process, output, checklist, tiêu chí kiểm tra.", excellent: "Một người khác chạy được mà không cần hỏi thêm và biết khi nào dừng." },
+    { criterion: "Lưu vào dự án", pass: "Workflow nằm trong cấu trúc thư mục dự án.", excellent: "Có project instructions/CLAUDE.md chỉ cách dùng, cập nhật và kiểm chứng workflow." }
+  ],
+  m7: [
+    { criterion: "Trigger và task nhỏ", pass: "Workflow có trigger và các AI task đủ nhỏ.", excellent: "Mỗi task có input/output độc lập, có thể chạy lại khi lỗi mà không làm lại toàn bộ." },
+    { criterion: "Human Review đúng chỗ", pass: "Có ít nhất 1 điểm duyệt nơi rủi ro cao.", excellent: "Điểm duyệt gắn với tiền, khách hàng, pháp lý, dữ liệu hoặc quyết định không đảo ngược." },
+    { criterion: "Error handling và improvement", pass: "Có cách xử lý sai/thiếu và vòng cải tiến.", excellent: "Có log lỗi, quy tắc cập nhật workflow và một lần chạy đầu-cuối thật." }
+  ],
+  m8: [
+    { criterion: "Cấu trúc skill", pass: "Skill có tên, mục đích, đối tượng dùng, input bắt buộc.", excellent: "Skill kích hoạt tự nhiên, scope hẹp, tên và mô tả nói đúng một năng lực." },
+    { criterion: "Instruction theo bước", pass: "Mô tả process và tiêu chuẩn output đo được.", excellent: "Có quy tắc hỏi lại, known limits và xử lý input thiếu/sai." },
+    { criterion: "Chuẩn file", pass: "Lưu đúng thư mục SKILL.md.", excellent: "Có ví dụ, fixture nhỏ và phép thử kích hoạt trong hội thoại sạch." }
+  ],
+  m9: [
+    { criterion: "Test matrix", pass: "Có ít nhất 5 tình huống gồm input tốt, thiếu, sai.", excellent: "Mỗi case có expected output, tiêu chí pass/fail và mức nghiêm trọng khi fail." },
+    { criterion: "Simulation sạch", pass: "Ghi kết quả thực tế từng case.", excellent: "Chạy trong phiên sạch/subagent, tránh skill nhớ ngữ cảnh test trước." },
+    { criterion: "Fine-tune có bằng chứng", pass: "Skill cập nhật ít nhất 1 lần và test lại.", excellent: "Ghi lỗi → giả thuyết → chỉnh instruction → kết quả trước/sau." }
+  ],
+  m10: [
+    { criterion: "Package", pass: "Skill kèm hướng dẫn người mới dùng được.", excellent: "Có README, dữ liệu mẫu, hướng dẫn cài/chạy/khắc phục lỗi." },
+    { criterion: "Offer", pass: "Trang mô tả nêu vấn đề, đối tượng, kết quả, giới hạn.", excellent: "Định vị theo niche, có lời hứa đo được, không hứa quá khả năng skill." },
+    { criterion: "Beta feedback", pass: "Có ít nhất 1 người ngoài dùng thử.", excellent: "Phản hồi được chuyển thành changelog hoặc backlog cải tiến rõ." }
+  ],
+  m11: [
+    { criterion: "Chọn bậc lưu trữ", pass: "Nêu lý do chọn bậc thấp nhất đủ dùng.", excellent: "Có tín hiệu nâng cấp rõ và biết chi phí bảo trì của bậc cao hơn." },
+    { criterion: "Schema", pass: "Có thực thể, thuộc tính bắt buộc, ID, quy ước tên.", excellent: "Schema chịu được dữ liệu bẩn, có nhãn chuẩn và ví dụ bản ghi hợp lệ/không hợp lệ." },
+    { criterion: "Privacy-by-design", pass: "Phân loại dữ liệu nhạy cảm và quyền truy cập.", excellent: "Có ẩn danh hóa, backup, quy tắc AI được đọc/ghi gì và 3 truy vấn công việc thật." }
+  ],
+  m12: [
+    { criterion: "Triple đúng", pass: "Có bảng chủ thể - quan hệ - đối tượng từ tài liệu thật.", excellent: "Tên thực thể chuẩn hóa, tránh trùng và có nguồn cho từng triple quan trọng." },
+    { criterion: "Edge types", pass: "Có 5-10 loại quan hệ dùng nhất quán.", excellent: "Edge types đủ hẹp để truy vấn được, không biến thành nhãn mơ hồ." },
+    { criterion: "Câu hỏi đa bước", pass: "Trả lời 3 câu hỏi quan hệ.", excellent: "Chỉ ra vì sao tìm kiếm từ khóa không trả lời được hoặc dễ bỏ sót." }
+  ],
+  m13: [
+    { criterion: "Sân tập an toàn", pass: "Kit chạy trong project tập luyện.", excellent: "Có ranh giới rõ giữa sandbox và sản phẩm thật, mọi quyền đều đọc trước khi cho phép." },
+    { criterion: "Vòng lặp chuẩn", pass: "Đi đủ ask/scout → plan → cook → test → review → git.", excellent: "Nhật ký giải thích vì sao mỗi bước giúp giảm rủi ro." },
+    { criterion: "Nhật ký học", pass: "Ghi 7 ngày làm gì và AI làm gì tốt/chưa tốt.", excellent: "Rút ra rule cá nhân cho lần dùng kit tiếp theo." }
+  ],
+  m14: [
+    { criterion: "Plan sâu", pass: "Có plan --two và chọn một phương án.", excellent: "Có red-team plan và sửa ít nhất một điểm trước cook." },
+    { criterion: "TDD", pass: "Có test trước và test pass sau khi sửa.", excellent: "Ghi được red-green-refactor, không chỉ chạy test sau cùng." },
+    { criterion: "Ship gate", pass: "Test xanh, review xong, không có secret.", excellent: "Có bằng chứng lệnh kiểm tra và quyết định ship/không ship." }
+  ],
+  m15: [
+    { criterion: "Song song thật", pass: "Hai worktree làm hai việc độc lập.", excellent: "Không đụng file nhau, có review chéo và merge có kiểm soát." },
+    { criterion: "Skill/hook riêng", pass: "Tạo một skill theo convention thật.", excellent: "Skill nằm trong project, không sửa global, và có test kích hoạt." },
+    { criterion: "Kinh tế context", pass: "Áp dụng ít nhất 3/5 nguyên tắc.", excellent: "Có ghi nhận khác biệt chi phí/chất lượng hoặc thời gian." }
+  ],
+  m20: [
+    { criterion: "Bản đồ khái niệm", pass: "Phân biệt đúng 4 mô hình và execution host của mỗi mô hình.", excellent: "Nêu được trade-off về local files, uptime, quyền, dữ liệu và trách nhiệm vận hành cho bot tự dựng, Anthropic và OpenAI." },
+    { criterion: "Mobile control loop", pass: "Pilot đi đủ Start, Monitor, Clarify/Approve, Review, Stop từ điện thoại.", excellent: "Có tình huống cần đổi hướng/approval thật và ghi rõ hệ thống phản ứng khi host ngủ hoặc mạng rớt." },
+    { criterion: "Runbook và an toàn", pass: "Có status/logs/restart/stop/rollback; secret không lộ.", excellent: "Người khác có thể dùng runbook xử lý một sự cố mô phỏng; có spending limit, backup và human gate cho hành động rủi ro." }
+  ],
+  m16: [
+    { criterion: "Cài và kết nối", pass: "Gateway, dashboard, terminal chat và kênh chat thật chạy được.", excellent: "Nhật ký thiết lập đủ để người khác tái hiện." },
+    { criterion: "Chẩn đoán", pass: "Tự gây và sửa 2 sự cố bằng doctor/status/logs.", excellent: "Ghi hiện tượng, giả thuyết, lệnh dùng, kết quả sửa." },
+    { criterion: "An toàn ngày đầu", pass: "Bật đủ 5 lá chắn, gateway chưa phơi Internet.", excellent: "Có pairing đúng chủ, token/API key được giữ bí mật và spending limit xác nhận." }
+  ],
+  m17: [
+    { criterion: "Persona tách biệt", pass: "Hai agent có binding và giọng điệu khác nhau.", excellent: "Work/personal tách auth, workspace, memory và channel rõ." },
+    { criterion: "Memory có đo", pass: "Bật từng tầng và ghi token/chi phí.", excellent: "Đọc, chỉnh tay và version-control memory/persona đã lọc secret." },
+    { criterion: "Review trí nhớ", pass: "Kiểm chứng DREAMS.md/MEMORY.md.", excellent: "Có quy tắc sửa trí nhớ sai và rollback persona." }
+  ],
+  m18: [
+    { criterion: "Automation ổn định", pass: "Cron chạy đúng lịch ít nhất 2 ngày.", excellent: "Có kênh nhận kết quả, điều kiện tắt và bảng chi phí trước/sau." },
+    { criterion: "Worker coding nền", pass: "Một việc code thật hoàn thành qua app chat.", excellent: "Theo dõi bằng tasks, có human review trước merge/deploy." },
+    { criterion: "Quyền tối thiểu", pass: "Đọc permission requests của skill/plugin.", excellent: "Automation có dry-run/giới hạn quyền, hành động không đảo ngược cần duyệt." }
+  ],
+  m19: [
+    { criterion: "Threat model cá nhân", pass: "Mô tả 2 kịch bản tấn công vào hệ thống của bạn.", excellent: "Kịch bản có đường vào, tài sản bị đe dọa, tác động và biện pháp chặn cụ thể." },
+    { criterion: "5 lớp phòng thủ", pass: "Audit sạch, owner/profile/sandbox cấu hình tối thiểu quyền.", excellent: "Có bằng chứng cấu hình và lý do quyền nào được cấp/quyền nào bị chặn." },
+    { criterion: "Production readiness", pass: "Backup đã thử khôi phục, failover kiểm chứng, 3 workflow chạy ổn.", excellent: "Có bảng chi phí, lịch review định kỳ và quyết định rõ chưa phơi gateway ra Internet." }
+  ]
+};
+
+// ===== Artifact mẫu để người học đối chiếu =====
+const sampleArtifacts = [
+  {
+    id: "sample-context",
+    title: "Context Blueprint mẫu",
+    module: "M2",
+    description: "Mẫu context hoàn chỉnh cho nhiệm vụ nghiên cứu đối thủ, dùng để soi lại bài làm M2-M4.",
+    body: [
+      "ROLE: Bạn là chuyên gia phân tích cạnh tranh ngành F&B tại Việt Nam.",
+      "GOAL: Giúp tôi quyết định có nên thử dòng trà sữa ít đường cho dân văn phòng 25-35 tuổi không.",
+      "CONTEXT: Tôi có 2 quán cà phê ở quận 3, khách chính là dân văn phòng, ngân sách thử nghiệm 150 triệu.",
+      "INPUT: Menu/giá 4 đối thủ trong bán kính 2km, số liệu bán hàng 6 tháng, 30 phản hồi khách gần nhất.",
+      "PROCESS: (1) Phân tích định vị đối thủ. (2) Tìm khoảng trống. (3) Đánh giá ý tưởng. (4) Đề xuất đi/không đi kèm điều kiện.",
+      "OUTPUT: Báo cáo tối đa 800 từ, kết luận ở đầu, có bảng so sánh và 2 rủi ro lớn nhất.",
+      "CONSTRAINTS: Chỉ dùng dữ liệu được cấp; thiếu dữ liệu thì ghi 'cần kiểm chứng thêm'; không dùng số liệu thị trường chung nếu không có nguồn.",
+      "VERIFICATION: Mỗi nhận định về đối thủ trích được từ input; đề xuất nằm trong 150 triệu; kết luận có điều kiện dừng thử nghiệm."
+    ].join("\n")
+  },
+  {
+    id: "sample-workflow",
+    title: "Workflow Canvas mẫu",
+    module: "M7",
+    description: "Workflow xử lý yêu cầu báo giá có human review, error handling và improvement loop.",
+    body: [
+      "TRIGGER: Có email/form yêu cầu báo giá mới từ khách B2B.",
+      "INPUT: Email khách, thông tin công ty, bảng giá hiện hành, chính sách chiết khấu, lịch sử giao dịch nếu có.",
+      "AI TASK 1: Tóm tắt nhu cầu, xác định thiếu dữ liệu và phân loại mức rủi ro.",
+      "HUMAN REVIEW 1: Sales duyệt mức rủi ro, bổ sung dữ liệu thiếu, quyết định có dùng chiết khấu hay không.",
+      "AI TASK 2: Soạn 2 phương án báo giá kèm giả định, điều kiện áp dụng và câu hỏi cần hỏi khách.",
+      "QUALITY CHECK: Không hứa ngoài chính sách; mọi con số có nguồn từ bảng giá; giọng điệu phù hợp khách hàng.",
+      "ERROR HANDLING: Nếu thiếu dữ liệu bắt buộc, AI không viết báo giá mà tạo email hỏi thêm.",
+      "IMPROVEMENT: Ghi lỗi vào quote-workflow-log.md; mỗi thứ Sáu rà 5 case sai để cập nhật workflow."
+    ].join("\n")
+  },
+  {
+    id: "sample-skill",
+    title: "Agent Skill mẫu",
+    module: "M8",
+    description: "Khung SKILL.md tối thiểu để chuyển workflow phân tích phản hồi khách hàng thành skill.",
+    body: [
+      "# Customer Feedback Analyst",
+      "",
+      "## Purpose",
+      "Phân loại phản hồi khách hàng thành chủ đề, mức độ nghiêm trọng và đề xuất hành động ưu tiên.",
+      "",
+      "## Required Input",
+      "- File CSV/Sheet có cột: date, source, feedback_text.",
+      "- Danh sách nhãn chủ đề được phép dùng.",
+      "- Mục tiêu phân tích: sản phẩm, vận hành, CSKH hoặc growth.",
+      "",
+      "## Process",
+      "1. Kiểm tra schema input; nếu thiếu cột bắt buộc thì hỏi lại.",
+      "2. Lấy mẫu 20 dòng để phát hiện dữ liệu bẩn hoặc nhãn thiếu.",
+      "3. Phân loại toàn bộ phản hồi theo danh sách nhãn, không tự tạo nhãn mới nếu chưa xin phép.",
+      "4. Tóm tắt 5 insight có dẫn chứng bằng feedback_text nguyên văn.",
+      "5. Đề xuất 3 hành động ưu tiên theo impact/effort.",
+      "",
+      "## Output Standard",
+      "- Bảng chủ đề: count, severity, evidence, suggested_action.",
+      "- Không có insight nào thiếu dẫn chứng.",
+      "- Ghi rõ known limits nếu dữ liệu quá ít hoặc lệch nguồn.",
+      "",
+      "## Known Limits",
+      "- Không suy luận nguyên nhân kinh doanh nếu feedback không nêu.",
+      "- Không xử lý dữ liệu định danh khách hàng nếu chưa được ẩn danh hóa."
+    ].join("\n")
+  },
+  {
+    id: "sample-test-matrix",
+    title: "Test Matrix mẫu",
+    module: "M9",
+    description: "Bảng kiểm thử skill với input tốt, thiếu, sai và tiêu chí pass/fail.",
+    body: [
+      "| Case | Loại input | Mục tiêu | Expected | Pass/Fail |",
+      "|---|---|---|---|---|",
+      "| T01 | Tốt | CSV đủ cột, 50 phản hồi sạch | Phân loại đúng schema, có 5 insight có dẫn chứng | Pass nếu không tạo nhãn ngoài danh sách |",
+      "| T02 | Thiếu | Thiếu cột source | Skill hỏi lại hoặc yêu cầu bổ sung, không tự bịa nguồn | Pass nếu không phân tích tiếp |",
+      "| T03 | Sai | feedback_text chứa số điện thoại/email | Skill cảnh báo dữ liệu định danh, đề xuất ẩn danh hóa | Pass nếu không lặp lại PII trong output |",
+      "| T04 | Lệch | 5 phản hồi quá ít | Ghi known limit, không kết luận quá mức | Pass nếu có cảnh báo độ tin cậy |",
+      "| T05 | Bẩn | Trộn tiếng Việt/Anh, lỗi font | Báo dòng lỗi, vẫn phân loại phần đọc được | Pass nếu có log dòng không xử lý được |"
+    ].join("\n")
+  },
+  {
+    id: "sample-capstone",
+    title: "Capstone mẫu",
+    module: "M19",
+    description: "Khung bài tốt nghiệp cho hệ thống trợ lý cá nhân có 3 workflow, chi phí và security audit.",
+    body: [
+      "# Capstone: Personal Ops Assistant",
+      "",
+      "## 3 workflow chạy thật",
+      "1. Trợ lý sáng: 7h tóm tắt lịch + email ưu tiên, gửi Telegram, giới hạn 12 dòng.",
+      "2. Worker coding: nhận task bug nhỏ, tạo branch, chạy test, trả link PR; merge luôn cần người duyệt.",
+      "3. Memory review: mỗi tối chưng cất việc đã hứa vào MEMORY.md, sáng hôm sau nhắc các cam kết mở.",
+      "",
+      "## Security baseline",
+      "- Gateway chỉ chạy localhost.",
+      "- Command owner chỉ là user chính.",
+      "- Capability profile tách chat thường và coding worker.",
+      "- Bot/API token nằm ngoài git, đã đặt spending limit.",
+      "- Security audit sạch trước khi chạy 24/7.",
+      "",
+      "## Cost table",
+      "- Baseline chat: ... token/ngày.",
+      "- Thêm cron sáng: ... token/ngày.",
+      "- Thêm memory review: ... token/ngày.",
+      "- Ngưỡng tắt/tối ưu: vượt ... USD/tháng hoặc job không được đọc 5 ngày liên tiếp.",
+      "",
+      "## Recovery",
+      "- Backup tạo hằng tuần.",
+      "- Đã thử khôi phục một lần vào thư mục test.",
+      "- Failover model được kiểm chứng bằng một câu hỏi chuẩn."
+    ].join("\n")
   }
 ];
 

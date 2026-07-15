@@ -450,6 +450,23 @@ button {
   line-height: 1.6;
 }
 
+.resource-label {
+  margin: 14px 0 6px;
+  color: var(--green-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.resource-list {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
 pre {
   overflow-x: auto;
   margin: 0;
@@ -812,6 +829,78 @@ pre {
   gap: 6px;
 }
 
+/* ===== Rubrics & sample artifacts ===== */
+.rubric-block {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.rubric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.rubric-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #d8e6df;
+  border-radius: 8px;
+  background: #f7fbf9;
+}
+
+.rubric-card h4 {
+  margin: 0;
+  color: var(--green-dark);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.rubric-card p {
+  margin: 0;
+  color: #33413c;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.sample-artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sample-card {
+  display: grid;
+  gap: 12px;
+  min-height: 360px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.sample-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.sample-card p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.sample-card pre {
+  max-height: 320px;
+}
+
+.sample-card .ghost-button {
+  justify-self: start;
+}
+
 /* ===== Sidebar data actions ===== */
 .data-actions {
   display: grid;
@@ -1142,7 +1231,9 @@ pre {
     border-left: 1px solid var(--line);
   }
 
-  .tool-grid {
+  .tool-grid,
+  .rubric-grid,
+  .sample-artifact-grid {
     grid-template-columns: 1fr;
   }
 }

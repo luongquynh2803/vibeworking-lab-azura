@@ -259,6 +259,7 @@ function renderModuleNav() {
 // ===== Module detail =====
 function buildCritiquePrompt(module) {
   const work = (state.work[module.id] || "").trim();
+  const rubric = typeof moduleRubrics !== "undefined" ? moduleRubrics[module.id] || [] : [];
   const pm = projectModule(module.id);
   const p = getProject();
   const projectContext =
@@ -281,6 +282,13 @@ function buildCritiquePrompt(module) {
     ``,
     `## Tiêu chí kiểm chứng`,
     ...module.checklist.map((item, i) => `${i + 1}. ${item}`),
+    ...(rubric.length
+      ? [
+          ``,
+          `## Rubric chấm đầu ra`,
+          ...rubric.map((item, i) => `${i + 1}. ${item.criterion} — Đạt: ${item.pass} — Xuất sắc: ${item.excellent}`)
+        ]
+      : []),
     ``,
     ...projectContext,
     ``,
@@ -437,6 +445,30 @@ function renderProjectBlock(module) {
   `;
 }
 
+function renderRubricSection(module) {
+  const rubric = typeof moduleRubrics !== "undefined" ? moduleRubrics[module.id] || [] : [];
+  if (!rubric.length) return "";
+  return `
+    <div class="content-block rubric-block">
+      <h3>Rubric chấm đầu ra</h3>
+      <p class="block-hint">Dùng phần này để tự chấm trước khi tick checklist hoặc nhờ AI phản biện.</p>
+      <div class="rubric-grid">
+        ${rubric
+          .map(
+            (item) => `
+              <article class="rubric-card">
+                <h4>${escapeHTML(item.criterion)}</h4>
+                <p><strong>Đạt:</strong> ${escapeHTML(item.pass)}</p>
+                <p><strong>Xuất sắc:</strong> ${escapeHTML(item.excellent)}</p>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
 function renderPracticeTab(module) {
   return `
     ${renderProjectBlock(module)}
@@ -450,6 +482,7 @@ function renderPracticeTab(module) {
         <p>${module.output}</p>
       </div>
     </div>
+    ${renderRubricSection(module)}
     ${renderWorkspaceSection(module)}
     ${renderChecklistSection(module)}
     ${renderQuizSection(module)}
@@ -595,6 +628,24 @@ function renderCapstone() {
   });
 }
 
+function renderLevelGuide() {
+  const container = document.getElementById("levelGuide");
+  if (!container || typeof levelGuides === "undefined") return;
+  const guide = levelGuides[state.level];
+  if (!guide) {
+    container.innerHTML = "";
+    return;
+  }
+  container.innerHTML = `
+    <h3>${escapeHTML(guide.title)}</h3>
+    <p>${escapeHTML(guide.promise)}</p>
+    <p class="resource-label">Cần có trước khi học</p>
+    <ul class="resource-list">${guide.prerequisites.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
+    <p class="resource-label">Đầu ra khi qua chặng</p>
+    <ul class="resource-list">${guide.exitCriteria.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
+  `;
+}
+
 // ===== Templates tương tác =====
 function templateText(tool) {
   const values = state.templates[tool.id] || {};
@@ -644,6 +695,33 @@ function renderTools() {
     button.onclick = () => {
       const tool = tools.find((t) => t.id === button.dataset.copyTool);
       copyToClipboard(templateText(tool), button);
+    };
+  });
+}
+
+function renderSamples() {
+  const container = document.getElementById("sampleArtifactGrid");
+  if (!container || typeof sampleArtifacts === "undefined") return;
+  container.innerHTML = sampleArtifacts
+    .map(
+      (artifact) => `
+        <article class="sample-card">
+          <div>
+            <p class="eyebrow">${escapeHTML(artifact.module)} · Artifact mẫu</p>
+            <h3>${escapeHTML(artifact.title)}</h3>
+          </div>
+          <p>${escapeHTML(artifact.description)}</p>
+          <pre><code>${escapeHTML(artifact.body)}</code></pre>
+          <button class="ghost-button" type="button" data-copy-sample="${escapeHTML(artifact.id)}">Copy mẫu</button>
+        </article>
+      `
+    )
+    .join("");
+
+  document.querySelectorAll("[data-copy-sample]").forEach((button) => {
+    button.onclick = () => {
+      const artifact = sampleArtifacts.find((item) => item.id === button.dataset.copySample);
+      copyToClipboard(artifact.body, button);
     };
   });
 }
@@ -800,7 +878,9 @@ function render() {
   renderModuleNav();
   renderModuleDetail();
   renderCapstone();
+  renderLevelGuide();
   renderTools();
+  renderSamples();
   renderFlashcards();
 }
 
